@@ -1,0 +1,111 @@
+
+.ttn-container{
+
+}
+.ttn-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.ttn-columns{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    padding: 10px;
+    margin-top: 40px;
+    border:1px solid #000;
+    font-size: 26px;
+    text-align: center;
+}
+.ttn-list{
+    overflow-y: auto;
+    max-height: 23vh;
+}
+.ttn_link{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    padding: 10px;
+    margin-top: 15px;
+    border-bottom:1px solid #000;
+    text-decoration: none;
+    color: #000;
+    font-size: 22px;
+    text-align: center;
+}
+.ttn-spec-container{
+    margin-top: 10px;
+}
+.ttn-spec-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 35px;
+}
+.ttn-spec-content{
+    width: 100%;
+    max-width: 1900px;
+    overflow-x:scroll;
+}
+
+.ttn-spec-columns{
+    width: 140%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr repeat(11,1fr);
+    text-align: center;
+    gap: 25px;
+    border:1px solid #000;
+    font-size: 24px;
+    padding: 10px;
+    margin-bottom: 35px;
+    align-items: center;
+}
+.ttn-spec-column{
+    text-align: center;
+}
+.ttn-spec-list{
+    height: 30vh;
+}
+.ttn-spec-link{
+    text-decoration: none;
+    width: 140%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr repeat(11,1fr);
+    text-align: center;
+    gap: 25px;
+    border-bottom:1px solid #000;
+    font-size: 23px;
+    padding: 10px;
+    color: black;
+}
+.ttn-modal{
+    width: 70%;
+    position: absolute;
+    top: 25%;
+    z-index: 100;
+    background-color: rgb(250, 250, 250);
+    padding: 30px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border: 4px solid #000;
+    left: 10%;
+}
+.form-ttn-agent{
+    margin-top: 35px;
+}
+.btn-ttn-agent{
+    margin-left: 20px;
+}
+.slc{
+    padding: 10px;
+}
+.btn-filter{
+    padding: 7px;
+}
+.active-btn{
+    background-color: coral;
+}
+.disable-btn{
+    background-color: grey;
+}

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/prihod.css">
+</head>
+<body>
+     <section class="work-window">
+        <aside class="sidebar">
+            <ul class="nav">
+              <li class="nav-item"><a class="nav-item-link" href="#">Прием товара</a>
+              <ul class="submenu">
+                <li class="submenu-item"><a  class="submenu-item-link" href="#">ТТН</a>
+                <li class="submenu-item"><a  class="submenu-item-link" href="#">Приемный акт</a>
+              </ul>
+            </li>
+              <li class="nav-item"><a class="nav-item-link" href="#">Товар</a></li>
+              <li class="nav-item"><a class="nav-item-link"  href="#">Справочники</a>
+                <ul class="submenu">
+                    <li class="submenu-item"><a href="#">Номенклатор</a>
+                    <li class="submenu-item"><a href="#">Контрагенты</a>
+                </ul>
+            </li>
+              <li class="nav-item"><a  class="nav-item-link" href="#">Отгрузка товара</a></li>
+            </ul>
+          </aside>
+        
+          <main class="content">
+            <div class="ttn-container container">
+                <div class="ttn-header">
+                    <h3 class="container_title">Приходные накладные</h3>
+                    <div class="ttn-btns">
+                        <button class="btn btn__standart ttn_add">Добавить ТТН</button>
+                        <button class="btn btn__standart ttn_update disable-btn" disabled >Корректировка</button>
+                        <button class="btn btn__standart ttn_otr disable-btn" disabled>Отработать ТТН</button>
+                    </div>
+                </div>
+                <div class="ttn-filter">
+                    <button class="btn btn-filter btn-filter_nootr active-btn">Неотработанные ТТН</button>
+                    <button class="btn btn-filter btn-filter_otr">Отработанные ТТН</button>
+                </div>
+                <div class="ttn-content">
+                    <div class="ttn-columns">
+                        <p class="ttn-column">Код накладной</p>
+                        <p class="ttn-column">Номер накладной</p>
+                        <p class="ttn-column">Дата накладной</p>
+                        <p class="ttn-column">Дата отработки</p>
+                        <p class="ttn-column">Поставщик</p>
+                        <p class="ttn-column">Склад</p>
+                    </div>
+                    <ul class="ttn-list">
+                        <li class="ttn-items">
+                            <a href="#" class="ttn_link selected">
+                                <p class="ttn-id">1442</p>
+                                <p class="ttn-nomer">КЗН015256156</p>
+                                <p class="ttn-date">01.08.2024</p>
+                                <p class="ttn-date-otr">01.08.2024</p>
+                                <p class="ttn-agent">Кантрен</p>
+                                <p class="ttn-sklad">Розница</p>
+                                
+                            </a>
+                        </li>
+                        <li class="ttn-items">
+                            <a href="#" class="ttn_link">
+                                <p class="ttn-id">1442</p>
+                                <p class="ttn-nomer">КЗН015256156</p>
+                                <p class="ttn-date">01.08.2024</p>
+                                <p class="ttn-date-otr">01.08.2024</p>
+                                <p class="ttn-agent">Кантрен</p>
+                                <p class="ttn-sklad">Розница</p>
+                                
+                            </a>
+                        </li>
+                        <li class="ttn-items">
+                            <a href="#" class="ttn_link">
+                                <p class="ttn-id">1442</p>
+                                <p class="ttn-nomer">КЗН015256156</p>
+                                <p class="ttn-date">01.08.2024</p>
+                                <p class="ttn-date-otr">01.08.2024</p>
+                                <p class="ttn-agent">Кантрен</p>
+                                <p class="ttn-sklad">Розница</p>
+                                
+                            </a>
+                        </li>
+                        <li class="ttn-items">
+                            <a href="#" class="ttn_link">
+                                <p class="ttn-id">1442</p>
+                                <p class="ttn-nomer">КЗН015256156</p>
+                                <p class="ttn-date">01.08.2024</p>
+                                <p class="ttn-date-otr">01.08.2024</p>
+                                <p class="ttn-agent">Кантрен</p>
+                                <p class="ttn-sklad">Аптечное производство</p>
+                                
+                            </a>
+                        </li>
+                        <li class="ttn-items">
+                            <a href="#" class="ttn_link">
+                                <p class="ttn-id">1442</p>
+                                <p class="ttn-nomer">КЗН015256156</p>
+                                <p class="ttn-date">01.08.2024</p>
+                                <p class="ttn-date-otr">01.08.2024</p>
+                                <p class="ttn-agent">Кантрен</p>
+                                <p class="ttn-sklad">Розница</p>
+                                
+                            </a>
+                        </li>
+                        <li class="ttn-items">
+                            <a href="#" class="ttn_link">
+                                <p class="ttn-id">1442</p>
+                                <p class="ttn-nomer">КЗН015256156</p>
+                                <p class="ttn-date">01.08.2024</p>
+                                <p class="ttn-date-otr">01.08.2024</p>
+                                <p class="ttn-agent">Кантрен</p>
+                                <p class="ttn-sklad">Розница</p>
+                                
+                            </a>
+                        </li>
+                        <li class="ttn-items">
+                            <a href="#" class="ttn_link">
+                                <p class="ttn-id">1442</p>
+                                <p class="ttn-nomer">КЗН015256156</p>
+                                <p class="ttn-date">01.08.2024</p>
+                                <p class="ttn-date-otr">01.08.2024</p>
+                                <p class="ttn-agent">Кантрен</p>
+                                <p class="ttn-sklad">Розница</p>
+                                
+                            </a>
+                        </li>
+                        <li class="ttn-items">
+                            <a href="#" class="ttn_link">
+                                <p class="ttn-id">1442</p>
+                                <p class="ttn-nomer">КЗН015256156</p>
+                                <p class="ttn-date">01.08.2024</p>
+                                <p class="ttn-date-otr">01.08.2024</p>
+                                <p class="ttn-agent">Кантрен</p>
+                                <p class="ttn-sklad">Розница</p>
+                                
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="ttn-spec-container container">
+                <div class="ttn-spec-header">
+                    <h3 class="container_title">Спецификация приходной накладной</h3>
+                    <div class="ttn-spec-btns">
+                        <button class="btn btn__standart ttn-sepec_add">Добавить позицию</button>
+                        <button class="btn btn__standart ttn-sepec_update" disabled>Корректировка</button>
+                    </div>
+                </div>
+                <div class="ttn-spec-content">
+                    <div class="ttn-spec-columns">
+                        <p class="ttn-spec-column">Активный</p>
+                        <p class="ttn-spec-column">Код спецификация</p>
+                        <p class="ttn-spec-column">Наименование</p>
+                        <p class="ttn-spec-column">ЖНВ</p>
+                        <p class="ttn-spec-column">Серия</p>
+                        <p class="ttn-spec-column">Количество</p>
+                        <p class="ttn-spec-column">Цена проз. ндс</p>
+                        <p class="ttn-spec-column">Цена проз. бндс</p>
+                        <p class="ttn-spec-column">Цена пост. ндс</p>
+                        <p class="ttn-spec-column">Цена пост. бндс</p>
+                        <p class="ttn-spec-column">Наценка %</p>
+                        <p class="ttn-spec-column">Розничная цена</p>
+                        <p class="ttn-spec-column">Тариф апт.произ</p>
+                        <p class="ttn-spec-column">Склад</p>
+                    </div>
+                    <ul class="ttn-spec-list">
+                        <li class="ttn-spec-items ">
+                            <a href="#" class="ttn-spec-link selected">
+                                <input type="checkbox" class="ttn-spec-check">
+                                <p class="ttn-spec-id">4564</p>
+                                <p class="ttn-spec-name">Парацетамо 5 мг от татехмедфарма (выадлваьывдыв)</p>
+                                <p class="ttn-spec-jnv">Да</p>
+                                <p class="ttn-spec-seria">С51554</p>
+                                <p class="ttn-spec-kol">15</p>
+                                <p class="ttn-spec-prbnds">562,20</p>
+                                <p class="ttn-spec-prnds">580,10</p>
+                                <p class="ttn-spec-pbnds">5924</p>
+                                <p class="ttn-spec-pnds">5986.2</p>
+                                <p class="ttn-spec-rnac">0</p>
+                                <p class="ttn-spec-rcena">0</p>
+                                <p class="ttn-spec-tarif">0</p>
+                                <p class="ttn-spec-sklad">Розница</p>
+                            </a>
+                        </li>           
+                        <li class="ttn-spec-items">
+                            <a href="#" class="ttn-spec-link" data-active="true">
+                                <input type="checkbox" class="ttn-spec-check" checked disabled>
+                                <p class="ttn-spec-id">4564</p>
+                                <p class="ttn-spec-name">Парацетамо 5 мг от татехмедфарма (выадлваьывдыв)</p>
+                                <p class="ttn-spec-jnv">Да</p>
+                                <p class="ttn-spec-seria">С51554</p>
+                                <p class="ttn-spec-kol">15</p>
+                                <p class="ttn-spec-prbnds">562,20</p>
+                                <p class="ttn-spec-prnds">580,10</p>
+                                <p class="ttn-spec-pbnds">5924</p>
+                                <p class="ttn-spec-pnds">5986.2</p>
+                                <p class="ttn-spec-rnac">0</p>
+                                <p class="ttn-spec-rcena">0</p>
+                                <p class="ttn-spec-tarif">0</p>
+                                <p class="ttn-spec-sklad">Розница</p>
+                            </a>
+                        </li> 
+                        <li class="ttn-spec-items">
+                            <a href="#" class="ttn-spec-link">
+                                <input type="checkbox" class="ttn-spec-check">
+                                <p class="ttn-spec-id">4564</p>
+                                <p class="ttn-spec-name">Парацетамо 5 мг от татехмедфарма (выадлваьывдыв)</p>
+                                <p class="ttn-spec-jnv">Да</p>
+                                <p class="ttn-spec-seria">С51554</p>
+                                <p class="ttn-spec-kol">15</p>
+                                <p class="ttn-spec-prbnds">562,20</p>
+                                <p class="ttn-spec-prnds">580,10</p>
+                                <p class="ttn-spec-pbnds">5924</p>
+                                <p class="ttn-spec-pnds">5986.2</p>
+                                <p class="ttn-spec-rnac">0</p>
+                                <p class="ttn-spec-rcena">0</p>
+                                <p class="ttn-spec-tarif">0</p>
+                                <p class="ttn-spec-sklad">Розница</p>
+                            </a>
+                        </li> 
+                        <li class="ttn-spec-items">
+                            <a href="#" class="ttn-spec-link">
+                                <input type="checkbox" class="ttn-spec-check">
+                                <p class="ttn-spec-id">4564</p>
+                                <p class="ttn-spec-name">Парацетамо 5 мг от татехмедфарма (выадлваьывдыв)</p>
+                                <p class="ttn-spec-jnv">Да</p>
+                                <p class="ttn-spec-seria">С51554</p>
+                                <p class="ttn-spec-kol">15</p>
+                                <p class="ttn-spec-prbnds">562,20</p>
+                                <p class="ttn-spec-prnds">580,10</p>
+                                <p class="ttn-spec-pbnds">5924</p>
+                                <p class="ttn-spec-pnds">5986.2</p>
+                                <p class="ttn-spec-rnac">0</p>
+                                <p class="ttn-spec-rcena">0</p>
+                                <p class="ttn-spec-tarif">0</p>
+                                <p class="ttn-spec-sklad">Розница</p>
+                            </a>
+                        </li> 
+                        <li class="ttn-spec-items">
+                            <a href="#" class="ttn-spec-link">
+                                <input type="checkbox" class="ttn-spec-check">
+                                <p class="ttn-spec-id">4564</p>
+                                <p class="ttn-spec-name">Парацетамо 5 мг от татехмедфарма (выадлваьывдыв)</p>
+                                <p class="ttn-spec-jnv">Да</p>
+                                <p class="ttn-spec-seria">С51554</p>
+                                <p class="ttn-spec-kol">15</p>
+                                <p class="ttn-spec-prbnds">562,20</p>
+                                <p class="ttn-spec-prnds">580,10</p>
+                                <p class="ttn-spec-pbnds">5924</p>
+                                <p class="ttn-spec-pnds">5986.2</p>
+                                <p class="ttn-spec-rnac">0</p>
+                                <p class="ttn-spec-rcena">0</p>
+                                <p class="ttn-spec-tarif">0</p>
+                                <p class="ttn-spec-sklad">Розница</p>
+                            </a>
+                        </li> 
+                        <li class="ttn-spec-items">
+                            <a href="#" class="ttn-spec-link">
+                                <input type="checkbox" class="ttn-spec-check">
+                                <p class="ttn-spec-id">4564</p>
+                                <p class="ttn-spec-name">Парацетамо 5 мг от татехмедфарма (выадлваьывдыв)</p>
+                                <p class="ttn-spec-jnv">Да</p>
+                                <p class="ttn-spec-seria">С51554</p>
+                                <p class="ttn-spec-kol">15</p>
+                                <p class="ttn-spec-prbnds">562,20</p>
+                                <p class="ttn-spec-prnds">580,10</p>
+                                <p class="ttn-spec-pbnds">5924</p>
+                                <p class="ttn-spec-pnds">5986.2</p>
+                                <p class="ttn-spec-rnac">0</p>
+                                <p class="ttn-spec-rcena">0</p>
+                                <p class="ttn-spec-tarif">0</p>
+                                <p class="ttn-spec-sklad">Розница</p>
+                            </a>
+                        </li> 
+                        <li class="ttn-spec-items">
+                            <a href="#" class="ttn-spec-link">
+                                <input type="checkbox" class="ttn-spec-check">
+                                <p class="ttn-spec-id">4564</p>
+                                <p class="ttn-spec-name">Парацетамо 5 мг от татехмедфарма (выадлваьывдыв)</p>
+                                <p class="ttn-spec-jnv">Да</p>
+                                <p class="ttn-spec-seria">С51554</p>
+                                <p class="ttn-spec-kol">15</p>
+                                <p class="ttn-spec-prbnds">562,20</p>
+                                <p class="ttn-spec-prnds">580,10</p>
+                                <p class="ttn-spec-pbnds">5924</p>
+                                <p class="ttn-spec-pnds">5986.2</p>
+                                <p class="ttn-spec-rnac">0</p>
+                                <p class="ttn-spec-rcena">0</p>
+                                <p class="ttn-spec-tarif">0</p>
+                                <p class="ttn-spec-sklad">Розница</p>
+                            </a>
+                        </li>             
+                    </ul>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- <div class="ttn-modal">
+                    <h4 class="modal-title">Добавить накладную</h4>
+                    <a href="#" class="btn-modal-close">Х</a>
+                    <form action="" class="dogovor-form">
+
+                        <div class="form-ttn-agent">
+                        <label class="form-label" for="inn">ИНН</label>
+                        <input type="number" class="input agent-input-name" name="inn">
+                        <label class="form-label" for="kpp">КПП</label>
+                        <input type="text" class="input agent-input-name" name="kpp">
+                        <button class="btn btn__standart btn-ttn-agent">Найти контрагента</button>
+                        </div>
+
+                        <label class="form-label" for="agent">Контрагент</label>
+                        <input type="text" class="input ttn-input-agent" name="agent" readonly>
+
+                        <label class="form-label" for="nomer">Номер накладной</label>
+                        <input type="text" class="input ttn-input-numer" name="nomer">
+
+                        <label class="form-label" for="sklad">Склад</label>
+                        <select name="sklad" id="sklad" class="slc slc_sklad"></select>
+
+                        <label class="form-label" for="kpp">Дата накладной</label>
+                        <input type="date" class="input ttn-input-date" name="date">
+
+                        
+                        <div class="form_btns">
+                            <button class="btn btn_save">Сохранить</button>
+                            <button class="btn btn_delet">Удалить</button>
+                        </div>
+                    </form>
+                </div>  -->
+          </main>
+    </section> 
+    
+</body>
+</html>
