@@ -90,7 +90,19 @@ export default class MainPresenter {
     e.preventDefault();
     const contentContainer = this.container.querySelector('.content');
     contentContainer.innerHTML = '';
-    const ttnPresenter = new TTNPresenter(contentContainer);
+  
+    // Создаем контейнер для таблицы ТТН
+    const ttnContainer = document.createElement('div');
+    ttnContainer.classList.add('ttn-block');
+    contentContainer.appendChild(ttnContainer);
+  
+    // Создаем контейнер для спецификации ТТН
+    const ttnSpecContainer = document.createElement('div');
+    ttnSpecContainer.classList.add('ttn-spec-block');
+    contentContainer.appendChild(ttnSpecContainer);
+  
+    // Инициализация TTNPresenter с двумя контейнерами
+    const ttnPresenter = new TTNPresenter(ttnContainer, ttnSpecContainer);
     ttnPresenter.init();
   }
 }

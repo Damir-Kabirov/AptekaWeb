@@ -33,6 +33,28 @@ router.get('/nomenclator', async (req, res) => {
   }
 });
 
+router.get('/nomenclator/search', async (req, res) => {
+  const { query } = req.query;
+
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool.request()
+      .input('query', sql.NVarChar, `%${query}%`)
+      .query(`
+        SELECT 
+          id AS id, 
+          prep_name AS name, 
+          manufacturer AS manufacturer 
+        FROM Nomenclator
+        WHERE prep_name LIKE @query
+      `);
+    res.json(result.recordset);
+  } catch (err) {
+    console.error('Ошибка при поиске препаратов:', err);
+    res.status(500).json({ error: 'Ошибка при поиске препаратов' });
+  }
+});
+
 // Маршрут для добавления новой позиции
 router.post('/nomenclator', async (req, res) => {
   const { prepname, jnv, manufacturer } = req.body;

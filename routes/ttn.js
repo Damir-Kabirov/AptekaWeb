@@ -59,14 +59,24 @@ router.delete('/ttn/:id', authMiddleware, async (req, res) => {
   const id = req.params.id;
   try {
     const pool = await sql.connect(dbConfig);
-    const result = await pool.request()
+
+    // Удаляем спецификации, связанные с накладной
+    await pool.request()
+      .input('ttnId', sql.Int, id)
+      .query(`
+        DELETE FROM TTN_SPEC
+        WHERE ttn_id = @ttnId
+      `);
+
+    // Удаляем накладную
+    await pool.request()
       .input('id', sql.Int, id)
       .query(`
         DELETE FROM TTN
         WHERE id = @id
       `);
 
-    res.json({ message: 'Накладная успешно удалена' });
+    res.json({ message: 'Накладная и связанные спецификации успешно удалены' });
   } catch (err) {
     console.error('Ошибка при удалении накладной:', err);
     res.status(500).json({ error: 'Ошибка при удалении накладной' });

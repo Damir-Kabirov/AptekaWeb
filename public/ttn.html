@@ -105,8 +105,8 @@
                                 <th scope="col">Склад</th>
                             </tr>
                          </thead>
-                         <tbody>
-                            <tr class="ttn-row">
+                         <tbody class="ttn-spec-body">
+                            <tr class="ttn-spec-row">
                                 <td class="ttn-spec-active "><input type="checkbox" class="ttn-spec-check"></td>
                                 <td class="ttn-spec-id">4564</td>
                                 <td class="ttn-spec-name">Парацетамо 5 мг от татехмедфарма (выадлваьывдыв)</td>
@@ -127,41 +127,47 @@
                 </div>
             </div>
             <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ttnModal">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ttnsModal">
     Launch demo modal
   </button>
   
   <!-- Modal -->
-  <div class="ttn-modal modal fade modal-xl" id="ttnModal" tabindex="-1" aria-labelledby="ttnModalLabel" aria-hidden="true" >
+  <div class="ttns-modal modal fade modal-xl" id="ttnsModal" tabindex="-1" aria-labelledby="ttnsModalLabel" aria-hidden="true" >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Добавить ТТН</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Добавить спецификацию</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body ttn-modal-body">
-            <div class="input-group input-group-lg ttn-input-group">
-                <span class="input-group-text" id="inputGroup-sizing-sm">Номер накладной</span>
-                <input type="text" class="form-control ttn-nomer-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                <span class="input-group-text" id="inputGroup-sizing-sm">Дата накладной</span>
-                <input type="date" class="form-control ttn-date-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+        <div class="modal-body ttns-modal-body">
+            <div class="input-group input-group-lg ttns-input-group">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Наименование препарата</span>
+                <input type="text" class="form-control ttns-name-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
               </div>  
-              <div class="input-group input-group-lg ttn-input-group">
-                <label class="input-group-text" for="inputGroupSelect01">Склад</label>
-                <select class="form-select ttn-sklad-select" id="inputGroupSelect01">
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
+              <div class="input-group input-group-lg ttns-input-group">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Количество</span>
+                <input type="text" class="form-control ttns-kol-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Серия</span>
+                <input type="text" class="form-control ttns-seria-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+              </div>  
+              <div class="input-group input-group-lg ttns-input-group">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Цена производителя ндс</span>
+                <input type="number" class="form-control ttns-cprnds-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Цена производителя без ндс</span>
+                <input type="number" class="form-control ttns-cprbnds-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                
               </div>
-              <div class="input-group input-group-lg ttn-input-group">
-                <label class="input-group-text" for="inputGroupSelect01">Поставщик</label>
-                <select class="form-select ttn-post-select" id="inputGroupSelect01">
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
+              <div class="input-group input-group-lg ttns-input-group">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Цена поставщика ндс</span>
+                <input type="number" class="form-control ttns-cpnds-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Цена поставщика без ндс</span>
+                <input type="number" class="form-control ttns-cpbnds-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
               </div>
+              <div class="input-group input-group-lg ttns-input-group">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Тариф аптечного производства</span>
+                <input type="number" class="form-control ttns-tarif-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+              </div>
+              
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>

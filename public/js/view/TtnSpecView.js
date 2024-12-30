@@ -11,8 +11,8 @@ const createTtnSpecTemplate = (ttnspec) => {
                 <div class="table-responsive ttn-spec-container">
                     <table class="table caption-top ttn-spec-table table-bordered">
                         <caption class="ttn-title">Спецификация накладной</caption>
-                         <thead class="ttn-thead">
-                             <tr class="ttn-colums table-info">
+                         <thead class="ttn-spec-thead">
+                             <tr class="ttn-spec-colums table-info">
                                 <th scope="col">Активный</th>
                                 <th scope="col">Код спецификация</th>
                                 <th scope="col">Наименование</th>
@@ -33,14 +33,14 @@ const createTtnSpecTemplate = (ttnspec) => {
                          <tbody class="ttn-spec-body">
                                ${ttnspec ?ttnspec.map(ttns => `
                     
-                           <tr class="ttn-spec-row">
+                           <tr class="ttn-spec-row" data-ttns-id="${ttns.id}">
                                 <td class="ttn-spec-active "><input type="checkbox" class="ttn-spec-check"${!ttns.isPas?'checked':''} ${ttns.isPas?'disabled':''}></td>
                                 <td class="ttn-spec-id">${ttns.id}</td>
                                 <td class="ttn-spec-name">${ttns.prepname}</td>
                                 <td class="ttn-spec-jnv">${ttns.isJnv?'Да':'Нет'}</td>
                                 <td class="ttn-spec-seria">${ttns.seria}</td>
                                 <td class="ttn-spec-kol">${ttns.kol}</td>
-                                <td class="ttn-spec-sroc">${ttns.srgod?ttns.srgod:" "}</td>
+                                <td class="ttn-spec-sroc">${ttns.srgod?normalizeDate(ttns.srgod):" "}</td>
                                 <td class="ttn-spec-prbnds">${ttns.prbnds}</td>
                                 <td class="ttn-spec-prnds">${ttns.prnds}</td>
                                 <td class="ttn-spec-pbnds">${ttns.pbnds}</td>
