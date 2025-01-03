@@ -86,4 +86,27 @@ export default class TtnModel {
       throw error;
     }
   }
+
+  async otrTtn(data) {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/ttn/otr', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Ошибка при отработке накладной');
+      }
+  
+      return await response.json();
+    } catch (error) {
+      console.error('Ошибка:', error);
+      throw error;
+    }
+  }
 }

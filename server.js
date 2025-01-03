@@ -9,7 +9,9 @@ const dogovorRoutes = require('./routes/dogovor');
 const ttnRoutes = require('./routes/ttn');
 const ttnSpecRoutes = require('./routes/ttnspec');
 const skladRoutes = require('./routes/sklad');
-
+const paRoutes = require('./routes/pa');
+const paSpecRoutes = require('./routes/paspec');
+const tovarRoutes = require('./routes/tovar');
 
 const app = express();
 const PORT = 3000;
@@ -27,10 +29,9 @@ app.use('/api', dogovorRoutes);
 app.use('/api', ttnRoutes);
 app.use('/api', ttnSpecRoutes);
 app.use('/api', skladRoutes);
-// Защищенный маршрут
-app.get('/api/protected', authMiddleware, (req, res) => {
-  res.json({ success: true, message: 'Доступ разрешен', user: req.user });
-});
+app.use('/api', paRoutes);
+app.use('/api', paSpecRoutes);
+app.use('/api', tovarRoutes);
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));

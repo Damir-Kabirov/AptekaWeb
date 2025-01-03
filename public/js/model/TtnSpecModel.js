@@ -61,4 +61,26 @@ export default class TtnSpecModel {
         throw error;
       }
     }
+    async updateTtnSpec(ttns) {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`/api/ttnspec/${ttns.id}`, {
+          method: 'PUT', // Используем метод PUT для обновления
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify(ttns),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Ошибка при обновлении спецификации');
+        }
+  
+        return await response.json();
+      } catch (error) {
+        console.error('Ошибка:', error);
+        throw error;
+      }
+    }
 }

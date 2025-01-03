@@ -1,0 +1,33 @@
+.pa-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.pa-header{
+    margin-bottom: 20px;
+}
+.pa-filter{
+    margin-bottom: 30px;
+}
+.pa-title{
+    font-size: 24px;
+}
+.pa-spec-container{
+    max-height: 35vh;
+    max-width: 85vw;
+    text-align: center;
+    font-size: 24px;
+    white-space: nowrap;
+    margin: 0 auto;
+}
+.pa-container{
+    max-height: 35vh;
+    max-width: 85vw;
+    margin: 0 auto;
+}
+.pa-spec-content{
+    margin-top: 40px;
+}
+.pa-spec-btns{
+    margin-bottom: 20px;
+}

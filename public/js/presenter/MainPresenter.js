@@ -6,6 +6,8 @@ import AgentPresenter from './AgentPresenter.js';
 import DogovorPresenter from './DogovorPresenter.js';
 import AuthPresenter from './AuthPresenter.js';
 import TTNPresenter from './TtnPresenter.js';
+import PaPresenter from './PaPresenter.js';
+import TovarPresenter from './TovarPresentor.js';
 import { render } from '../utils/render.js';
 
 export default class MainPresenter {
@@ -51,6 +53,16 @@ export default class MainPresenter {
     if (ttnLink) {
       ttnLink.addEventListener('click', this.handleTTNClick.bind(this));
     }
+
+    const PaLink = this.container.querySelector('.load-pa');
+    if (PaLink) {
+      PaLink.addEventListener('click', this.handlePaClick.bind(this));
+    }
+    const tovarLink = this.container.querySelector('.load-tovar');
+    if (tovarLink) {
+      tovarLink.addEventListener('click', this.handleTovarClick.bind(this));
+    }
+
   }
 
   handleNomenclatorClick(e) {
@@ -104,5 +116,31 @@ export default class MainPresenter {
     // Инициализация TTNPresenter с двумя контейнерами
     const ttnPresenter = new TTNPresenter(ttnContainer, ttnSpecContainer);
     ttnPresenter.init();
+  }
+  handlePaClick(e) {
+    e.preventDefault();
+    const contentContainer = this.container.querySelector('.content');
+    contentContainer.innerHTML = '';
+  
+    // Создаем контейнер для таблицы ТТН
+    const paContainer = document.createElement('div');
+    paContainer.classList.add('pa-block');
+    contentContainer.appendChild(paContainer);
+  
+    // Создаем контейнер для спецификации ТТН
+    const paSpecContainer = document.createElement('div');
+    paSpecContainer.classList.add('pas-spec-block');
+    contentContainer.appendChild(paSpecContainer);
+  
+    // Инициализация TTNPresenter с двумя контейнерами
+    const paPresenter = new PaPresenter(paContainer, paSpecContainer);
+    paPresenter.init();
+  }
+  handleTovarClick(e) {
+    e.preventDefault();
+    const contentContainer = this.container.querySelector('.content');
+    contentContainer.innerHTML = '';
+    const tovarPresenter = new TovarPresenter(contentContainer);
+    tovarPresenter.init();
   }
 }

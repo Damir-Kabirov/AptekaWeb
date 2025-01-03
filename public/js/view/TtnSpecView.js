@@ -6,7 +6,7 @@ const createTtnSpecTemplate = (ttnspec) => {
                 <div class="ttn-spec-btns">
                     <button class="btn btn__standart ttns_add">Добавить позицию</button>
                     <button class="btn btn__standart ttns_delet" disabled>Удалить позицию</button>
-                    <button class="btn btn__standart ttns_update disable-btn" disabled >Корректировка</button>
+                    <button class="btn btn__standart ttns_update" disabled >Корректировка</button>
                 </div>
                 <div class="table-responsive ttn-spec-container">
                     <table class="table caption-top ttn-spec-table table-bordered">
@@ -36,7 +36,7 @@ const createTtnSpecTemplate = (ttnspec) => {
                            <tr class="ttn-spec-row" data-ttns-id="${ttns.id}">
                                 <td class="ttn-spec-active "><input type="checkbox" class="ttn-spec-check"${!ttns.isPas?'checked':''} ${ttns.isPas?'disabled':''}></td>
                                 <td class="ttn-spec-id">${ttns.id}</td>
-                                <td class="ttn-spec-name">${ttns.prepname}</td>
+                                <td class="ttn-spec-name" data-prep-id="${ttns.prep_id}">${ttns.prepname}</td>
                                 <td class="ttn-spec-jnv">${ttns.isJnv?'Да':'Нет'}</td>
                                 <td class="ttn-spec-seria">${ttns.seria}</td>
                                 <td class="ttn-spec-kol">${ttns.kol}</td>

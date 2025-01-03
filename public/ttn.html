@@ -7,6 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/ttn.css">
+    <link rel="stylesheet" href="./css/pa.css">
+    <link rel="stylesheet" href="./css/tov.css">
 </head>
 <body>
      <section class="work-window">
@@ -30,144 +32,59 @@
           </aside> -->
         
           <main class="content">
-            <div class="ttn-content">
-                <div class="ttn-header">
-                    <h3 class="container_title">Приходные накладные</h3>
-                    <div class="ttn-btns">
-                        <button class="btn btn__standart ttn_add">Добавить ТТН</button>
-                        <button class="btn btn__standart ttn_delet" disabled>Удалить ТТН</button>
-                        <button class="btn btn__standart ttn_update disable-btn" disabled >Корректировка</button>
-                        <button class="btn btn__standart ttn_otr disable-btn" disabled>Отработать ТТН</button>
+            <div class="tov-content">
+                <div class="tov-header">
+                    <h3 class="container_title">Товарные запасы</h3>
+                    <div class="tov-btns">
+                      <button class="btn btn__standart tov_serch">Поиск</button>
+                      <button class="btn btn__standart tov_filter">Мониторинг сроков годности</button>
+                      <button class="btn btn__standart tov_clear_filter">Ощистить фильтры</button>
                     </div>
                 </div>
-                <div class="ttn-filter">
-                    <button class="btn btn-filter btn-filter_nootr active-btn">Неотработанные ТТН</button>
-                    <button class="btn btn-filter btn-filter_otr">Отработанные ТТН</button>
-                </div>
-                <div class="table-responsive ttn-container ">
-                    <table class="table caption-top ttn-table  table-hover ">
-                        <caption class="ttn-title">Товарно транспортные накладные</caption>
-                         <thead class="ttn-thead">
-                             <tr class="ttn-colums table-info">
-                                <th scope="col">Код накладной</th>
-                                <th scope="col">Номер накладной</th>
-                                <th scope="col">Дата накладной</th>
-                                <th scope="col">Дата отработки</th>
-                                <th scope="col">Поставщик</th>
+       
+                <div class="tov-filter"></div>
+                <div class="table-responsive tov-container ">
+                    <table class="table caption-top tov-table  table-hover ">
+                        <caption class="tov-title">Приемные акты</caption>
+                         <thead class="tov-thead">
+                             <tr class="tov-colums table-info">
+                                <th scope="col">Штрих код</th>
+                                <th scope="col">Наименование</th>
+                                <th scope="col">Количество</th>
+                                <th scope="col">Срок годности</th>
                                 <th scope="col">Склад</th>
+                                <th scope="col">ПА №</th>
                             </tr>
                          </thead>
                          <tbody>
-                            <tr class="ttn-row table-active">
-                                <td class="ttn-kod ">1442</td>
-                                <td class="ttn-nomer">КЗН015256156</td>
-                                <td class="ttn-date">01.08.2024</td>
-                                <td class="ttn-date-otr">01.08.2024</td>
-                                <td class="ttn-post">Кантрен</td>
-                                <td class="ttn-sklad">Розница</td>
-                            </tr>
-                            <tr class="ttn-row bg-primary">
-                                <td class="ttn-kod">1442</td>
-                                <td class="ttn-nomer">КЗН015256156</td>
-                                <td class="ttn-date">01.08.2024</td>
-                                <td class="ttn-date-otr">01.08.2024</td>
-                                <td class="ttn-post">Кантрен</td>
-                                <td class="ttn-sklad">Розница</td>
+                            <tr class="tov-row">
+                                <td class="tov-strih ">0000001233</td>
+                                <td class="tov-name">Парацетамол</td>
+                                <td class="tov-kol">4</td>
+                                <td class="tov-srgod">01.08.2024</td>
+                                <td class="tov-sklad">Розница</td>
+                                <td class="tov-pa-number">2025-001</td>
                             </tr>
                           </tbody>
                     </table>
                 </div>
             </div>
-            <div class="ttn-spec-content">
-                <div class="ttn-spec-btns">
-                    <button  class="btn btn__standart ttns_add" data-bs-toggle="modal" data-bs-target="#ttnModal">Добавить позицию</button>
-                    <button class="btn btn__standart ttns_delet" disabled>Удалить позицию</button>
-                    <button class="btn btn__standart ttns_update disable-btn" disabled >Корректировка</button>
-                </div>
-                <div class="table-responsive ttn-spec-container">
-                    <table class="table caption-top ttn-spec-table table-bordered">
-                        <caption class="ttn-title">Спецификация накладной</caption>
-                         <thead class="ttn-thead">
-                             <tr class="ttn-colums table-info">
-                                <th scope="col">Активный</th>
-                                <th scope="col">Код спецификация</th>
-                                <th scope="col">Наименование</th>
-                                <th scope="col">ЖНВ</th>
-                                <th scope="col">Серия</th>
-                                <th scope="col">Количество</th>
-                                <th scope="col">Цена проз. ндс</th>
-                                <th scope="col">Цена проз. бндс</th>
-                                <th scope="col">Цена пост. ндс</th>
-                                <th scope="col">Цена пост. бндс</th>
-                                <th scope="col">Наценка %</th>
-                                <th scope="col">Розничная цена</th>
-                                <th scope="col">Тариф апт.произ</th>
-                                <th scope="col">Склад</th>
-                            </tr>
-                         </thead>
-                         <tbody class="ttn-spec-body">
-                            <tr class="ttn-spec-row">
-                                <td class="ttn-spec-active "><input type="checkbox" class="ttn-spec-check"></td>
-                                <td class="ttn-spec-id">4564</td>
-                                <td class="ttn-spec-name">Парацетамо 5 мг от татехмедфарма (выадлваьывдыв)</td>
-                                <td class="ttn-spec-jnv">Да</td>
-                                <td class="ttn-spec-seria">С51554</td>
-                                <td class="ttn-spec-kol">15</td>
-                                <td class="ttn-spec-prbnds">562,20</td>
-                                <td class="ttn-spec-prnds">580,10</td>
-                                <td class="ttn-spec-pbnds">5924</td>
-                                <td class="ttn-spec-pnds">5986.2</td>
-                                <td class="ttn-spec-rnac">0</td>
-                                <td class="ttn-spec-rcena">0</td>
-                                <td class="ttn-spec-tarif">0</td>
-                                <td class="ttn-spec-sklad">Розница</td>
-                            </tr>
-                          </tbody>
-                    </table>
-                </div>
-            </div>
-            <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ttnsModal">
-    Launch demo modal
-  </button>
+            
+
   
   <!-- Modal -->
-  <div class="ttns-modal modal fade modal-xl" id="ttnsModal" tabindex="-1" aria-labelledby="ttnsModalLabel" aria-hidden="true" >
+  <div class="tov-serch-modal modal fade modal-lg" id="tovSerchModal" tabindex="-1" aria-labelledby="tovSerchModalLabel" aria-hidden="true" >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Добавить спецификацию</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Поиск</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body ttns-modal-body">
-            <div class="input-group input-group-lg ttns-input-group">
+        <div class="modal-body tov-serch-modal-body">
+            <div class="input-group input-group-lg tov-serch-input-group">
                 <span class="input-group-text" id="inputGroup-sizing-sm">Наименование препарата</span>
-                <input type="text" class="form-control ttns-name-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-              </div>  
-              <div class="input-group input-group-lg ttns-input-group">
-                <span class="input-group-text" id="inputGroup-sizing-sm">Количество</span>
-                <input type="text" class="form-control ttns-kol-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                <span class="input-group-text" id="inputGroup-sizing-sm">Серия</span>
-                <input type="text" class="form-control ttns-seria-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-              </div>  
-              <div class="input-group input-group-lg ttns-input-group">
-                <span class="input-group-text" id="inputGroup-sizing-sm">Цена производителя ндс</span>
-                <input type="number" class="form-control ttns-cprnds-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                <span class="input-group-text" id="inputGroup-sizing-sm">Цена производителя без ндс</span>
-                <input type="number" class="form-control ttns-cprbnds-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                
-              </div>
-              <div class="input-group input-group-lg ttns-input-group">
-                <span class="input-group-text" id="inputGroup-sizing-sm">Цена поставщика ндс</span>
-                <input type="number" class="form-control ttns-cpnds-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                <span class="input-group-text" id="inputGroup-sizing-sm">Цена поставщика без ндс</span>
-                <input type="number" class="form-control ttns-cpbnds-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-              </div>
-              <div class="input-group input-group-lg ttns-input-group">
-                <span class="input-group-text" id="inputGroup-sizing-sm">Тариф аптечного производства</span>
-                <input type="number" class="form-control ttns-tarif-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-              </div>
-              
+                <input type="text" readonly class="form-control pas-name-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            </div>    
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>

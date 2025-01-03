@@ -40,4 +40,12 @@ function getAnom (){
     return anom
 }
 
-export {normalizeDate,removeClassFromChildren,getAnom}
+function generateEAN13(pas_id, anom) {
+    const padded = `${pas_id}${anom}`.padStart(12, '0').slice(0, 12);
+    const checksum = (10 - (padded.split('').reduce((sum, digit, index) => 
+      sum + (index % 2 === 0 ? +digit : +digit * 3), 0) % 10)) % 10;
+
+    return `${padded}${checksum}`;
+  }
+
+export {normalizeDate,removeClassFromChildren,getAnom,generateEAN13}

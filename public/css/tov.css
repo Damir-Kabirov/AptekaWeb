@@ -1,0 +1,14 @@
+.tovar-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.tovar-actions{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+.btn_serch_tovar{
+    padding: 4px 9px;
+}

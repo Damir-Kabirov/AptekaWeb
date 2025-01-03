@@ -12,6 +12,7 @@ export default class TtnSpecPresenter {
     this.nomenclatorModel = new NomenclatorModel(); // Инициализируем модель номенклатора
     this.view = null;
     this.ttnId = ttnId;
+    this.modal = null; // Добавляем переменную для хранения модального окна
   }
 
   // Инициализация презентера
@@ -20,7 +21,6 @@ export default class TtnSpecPresenter {
       this.container.innerHTML = '';
       const data = await this.ttnSpecModel.getTtnSpec(this.ttnId);
       this.view = new TtnSpecView(data);
-      this.ttnsModal = new TtnsModalView();
       render(this.view, this.container);
       this.bindEvents();
     } catch (error) {
@@ -29,14 +29,13 @@ export default class TtnSpecPresenter {
     }
   }
 
+  // Метод для сохранения спецификации
   ttnsSave = async () => {
-    console.log('Метод ttnsSave вызван');
-    console.log('Контекст this:', this);
     try {
-      // Логика сохранения
       const ttnSpecData = {
+        id: Number(document.getElementById('ttnsModal').getAttribute('data-ttns-id')) || 0, // ID для редактирования
         ttnId: Number(document.querySelector('.ttn-row.table-active').getAttribute('data-ttnId')),
-        name: document.querySelector('.ttns-name-input').getAttribute('data-nomen-id'),
+        prepId: Number(document.querySelector('.ttns-name-input').getAttribute('data-nomen-id')),
         kol_tov: Number(document.querySelector('.ttns-kol-input').value),
         seria: document.querySelector('.ttns-seria-input').value,
         pr_cena_bnds: Number(document.querySelector('.ttns-cprbnds-input').value),
@@ -49,10 +48,14 @@ export default class TtnSpecPresenter {
         sklad: document.querySelector('.ttn-row.table-active').querySelector('.ttn-sklad').textContent,
         isPas: false,
       };
-      console.log('Данные для сохранения:', ttnSpecData);
 
-      // Отправляем данные на сервер
-      await this.ttnSpecModel.addTtnSpec(ttnSpecData);
+      if (ttnSpecData.id && ttnSpecData.id !== '0') {
+        // Режим редактирования
+        await this.ttnSpecModel.updateTtnSpec(ttnSpecData);
+      } else {
+        // Режим добавления
+        await this.ttnSpecModel.addTtnSpec(ttnSpecData);
+      }
 
       // Закрываем модальное окно
       this.modal.hide();
@@ -63,21 +66,22 @@ export default class TtnSpecPresenter {
       // Обновляем список спецификаций
       await this.refreshTtnSpecList(this.ttnId);
 
-      console.log('Спецификация успешно добавлена.');
+      console.log('Спецификация успешно сохранена.');
     } catch (error) {
       console.error('Ошибка при сохранении спецификации:', error);
       alert('Ошибка при сохранении спецификации');
     }
   };
 
-  // Создание модального окна для добавления спецификации
-  createModalTtn() {
+  // Создание модального окна
+  createModalTtn(ttnsData = null) {
+    this.ttnsModal = new TtnsModalView(ttnsData); // Передаем данные для редактирования
     render(this.ttnsModal, this.container);
     const ttnsModalWindow = document.querySelector('.ttns-modal');
     if (ttnsModalWindow) {
       this.modal = new bootstrap.Modal(ttnsModalWindow);
       this.modal.show();
-  
+
       // Обработчик для кнопки "Отмена"
       const cancelButton = ttnsModalWindow.querySelector('.btn-secondary');
       if (cancelButton) {
@@ -85,22 +89,14 @@ export default class TtnSpecPresenter {
           this.resetForm(); // Сбрасываем форму
         });
       }
-  
+
       // Обработчик для кнопки "Сохранить"
       const btnTtnsSave = document.querySelector('.btn-ttnspes-save');
       if (btnTtnsSave) {
-        console.log('Кнопка "Сохранить" найдена:', btnTtnsSave);
-        console.log('Кнопка отключена:', btnTtnsSave.disabled);
-  
-        // Удаляем старый обработчик (если есть)
-        btnTtnsSave.removeEventListener('click', this.ttnsSave);
-  
-        // Добавляем новый обработчик
-        btnTtnsSave.addEventListener('click', this.ttnsSave);
-      } else {
-        console.error('Кнопка .btn-ttns-save не найдена в DOM.');
+        btnTtnsSave.removeEventListener('click', this.ttnsSave); // Удаляем старый обработчик
+        btnTtnsSave.addEventListener('click', this.ttnsSave); // Добавляем новый обработчик
       }
-  
+
       // Обработчик для закрытия модального окна
       ttnsModalWindow.addEventListener('hidden.bs.modal', () => {
         this.resetForm(); // Сбрасываем форму при закрытии
@@ -108,6 +104,7 @@ export default class TtnSpecPresenter {
     }
     this.bindSearchEvents(); // Привязываем события для поиска
   }
+
   // Сброс полей формы
   resetForm() {
     const searchInput = document.querySelector('.ttns-name-input');
@@ -196,45 +193,121 @@ export default class TtnSpecPresenter {
           this.ttnBtnsControl();
         }
       });
-    } else {
-      console.error('Элемент .ttn-body не найден в DOM.');
     }
-
-    // Обработчик для кнопки "Добавить ТТН"
+    const ttnSpecBody = document.querySelector('.ttn-spec-body');
+    if (ttnSpecBody) {
+      ttnSpecBody.addEventListener('change', (evt) => {
+        if (evt.target.classList.contains('ttn-spec-check')) {
+          this.ttnBtnsControl(); // Обновляем состояние кнопок
+        }
+      });
+    }
+    // Обработчик для кнопки "Добавить спецификацию"
     const btnAddTtns = document.querySelector('.ttns_add');
     if (btnAddTtns) {
-      btnAddTtns.addEventListener('click', this.createModalTtn.bind(this));
-    } else {
-      console.error('Кнопка .ttns_add не найдена в DOM.');
+      btnAddTtns.addEventListener('click', () => this.createModalTtn());
+    }
+
+    // Обработчик для кнопки "Редактировать спецификацию"
+    const btnUpdateTtns = document.querySelector('.ttns_update');
+    if (btnUpdateTtns) {
+      btnUpdateTtns.addEventListener('click', () => this.updateTtns());
+    }
+
+    // Обработчик для кнопки "Удалить спецификацию"
+    const btnDeleteTtns = document.querySelector('.ttns_delet');
+    if (btnDeleteTtns) {
+      btnDeleteTtns.addEventListener('click', () => this.deletTtns());
     }
   }
-  async deletTtns (){
+
+  // Метод для редактирования спецификации
+  updateTtns() {
+    const activeRow = document.querySelector('.ttn-spec-row.table-active');
+    if (activeRow) {
+      const ttnsData = this.getActiveRowData(); // Получаем данные активной строки
+      this.createModalTtn(ttnsData); // Открываем модальное окно с данными
+    } else {
+      alert('Выберите спецификацию для редактирования');
+    }
+  }
+
+  // Получение данных активной строки
+  getActiveRowData() {
+    const activeRow = document.querySelector('.ttn-spec-row.table-active');
+    if (activeRow) {
+      return {
+        id: activeRow.getAttribute('data-ttns-id'),
+        prepname: activeRow.querySelector('.ttn-spec-name').textContent,
+        nomenId: activeRow.querySelector('.ttn-spec-name').getAttribute('data-prep-id'),
+        kol: activeRow.querySelector('.ttn-spec-kol').textContent,
+        seria: activeRow.querySelector('.ttn-spec-seria').textContent,
+        prnds: activeRow.querySelector('.ttn-spec-prnds').textContent,
+        prbnds: activeRow.querySelector('.ttn-spec-prbnds').textContent,
+        pnds: activeRow.querySelector('.ttn-spec-pnds').textContent,
+        pbnds: activeRow.querySelector('.ttn-spec-pbnds').textContent,
+        tarif: activeRow.querySelector('.ttn-spec-tarif').textContent,
+        srgod: activeRow.querySelector('.ttn-spec-sroc').textContent,
+      };
+    }
+    return null;
+  }
+
+  // Удаление спецификации
+  async deletTtns() {
     const activeRow = document.querySelector('.ttn-spec-row.table-active');
     if (activeRow) {
       const ttnsId = Number(activeRow.getAttribute('data-ttns-id'));
       try {
         await this.ttnSpecModel.deleteTtnSpec(ttnsId);
-
         await this.refreshTtnSpecList(this.ttnId);
       } catch (error) {
-        console.error('Ошибка при удалении ТТН:', error);
-        alert('Ошибка при удалении ТТН');
+        console.error('Ошибка при удалении спецификации:', error);
+        alert('Ошибка при удалении спецификации');
       }
     }
+  }
+
+  // Проверка, есть ли активный input
+  hasEnabledInput() {
+    const activeRow = document.querySelector('.ttn-spec-row.table-active');
+    if (activeRow) {
+      const inputRow = activeRow.querySelector('.ttn-spec-check');
+      return !inputRow.disabled;
+    }
+    return false;
   }
 
   // Управление кнопками (активация/деактивация)
   ttnBtnsControl() {
     const ttnsContent = document.querySelector('.ttn-spec-content');
+    const ttnsAddBtn = ttnsContent.querySelector('.ttns_add');
     const ttnsUpdateBtn = ttnsContent.querySelector('.ttns_update');
     const ttnsDeletBtn = ttnsContent.querySelector('.ttns_delet');
-    ttnsUpdateBtn.removeAttribute('disabled');
-    ttnsDeletBtn.removeAttribute('disabled');
-    ttnsDeletBtn.addEventListener('click',this.deletTtns.bind(this))
+  
+    const isProcessed = this.isTtnProcessed();
+    ttnsAddBtn.disabled = isProcessed; // Кнопка "Добавить позицию" неактивна для отработанной ТТН
+  
+    // Кнопки "Корректировка" и "Удалить позицию" активны только если выбрана активная строка
+    const activeRow = document.querySelector('.ttn-spec-row.table-active');
+    if (activeRow) {
+      const isInputEnabled = !activeRow.querySelector('.ttn-spec-check').disabled;
+      ttnsUpdateBtn.disabled = isProcessed || !isInputEnabled;
+      ttnsDeletBtn.disabled = isProcessed || !isInputEnabled;
+    } else {
+      ttnsUpdateBtn.disabled = true;
+      ttnsDeletBtn.disabled = true;
+    }
   }
-
+  isTtnProcessed() {
+    const activeRow = document.querySelector('.ttn-row.table-active');
+    if (activeRow) {
+      return activeRow.querySelector('.ttn-date-otr').textContent.trim() !== '';
+    }
+    return false;
+  }
   // Обновление списка спецификаций
-  async refreshTtnSpecList(ttnId) {
+  async refreshTtnSpecList(ttnId = 0) {
     this.ttnId = ttnId;
     try {
       if (this.view) {
@@ -244,6 +317,7 @@ export default class TtnSpecPresenter {
       this.view = new TtnSpecView(data);
       render(this.view, this.container);
       this.bindEvents();
+      this.ttnBtnsControl(); // Обновляем состояние кнопок
     } catch (error) {
       console.error('Ошибка при обновлении спецификации ТТН:', error);
       alert('Ошибка при обновлении спецификации ТТН');

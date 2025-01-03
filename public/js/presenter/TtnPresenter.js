@@ -16,7 +16,8 @@ export default class TtnPresenter {
     this.skladModel = new SkladModel();
     this.view = null;
     this.modal = null;
-    this.ttnSpec = new TtnSpec(this.ttnSpecContainer, 0); // Передаем контейнер для спецификации
+    this.ttnSpec = new TtnSpec(this.ttnSpecContainer, 0);
+    this.filter = false
   }
 
   async init(filter = false) {
@@ -32,7 +33,8 @@ export default class TtnPresenter {
       this.ttnSpecContainer.innerHTML = '';
 
       // Фильтрация данных
-      const filterData = filter ? data.filter(ttn => ttn.c_id === 2) : data.filter(ttn => ttn.c_id === 1);
+      const filterData = this.filter ? data.filter(ttn => ttn.c_id === 2) : data.filter(ttn => ttn.c_id === 1);
+      console.log(filterData)
       console.log('Отфильтрованные данные:', filterData);
 
       // Создаем представление для таблицы ТТН
@@ -53,19 +55,33 @@ export default class TtnPresenter {
     }
   }
 
-  ttnBtnsControl() {
-    const ttnContent = document.querySelector('.ttn-content');
-    const ttnUpdateBtn = ttnContent.querySelector('.ttn_update');
-    const ttnDeletBtn = ttnContent.querySelector('.ttn_delet');
-    const ttnOtrabotBtn = ttnContent.querySelector('.ttn_otr');
-    ttnUpdateBtn.removeAttribute('disabled');
-    ttnDeletBtn.removeAttribute('disabled');
-    if (document.querySelector('.ttn-spec-body').children.length || !document.querySelector('.btn-filter_otr').classList.contains('active-btn')) {
-      ttnOtrabotBtn.removeAttribute('disabled');
-    } else {
-      ttnOtrabotBtn.disabled = true;
-    }
+  hasEnabledInput() {
+    const tbody = document.querySelector('tbody.ttn-spec-body');
+    const inputs = tbody.querySelectorAll('input.ttn-spec-check');
+    return Array.from(inputs).some(input => !input.disabled);
+}
+
+ttnBtnsControl() {
+  const ttnContent = document.querySelector('.ttn-content');
+  const ttnUpdateBtn = ttnContent.querySelector('.ttn_update');
+  const ttnDeletBtn = ttnContent.querySelector('.ttn_delet');
+  const ttnOtrabotBtn = ttnContent.querySelector('.ttn_otr');
+
+  const activeRow = document.querySelector('.ttn-row.table-active');
+  if (activeRow) {
+    const isProcessed = activeRow.querySelector('.ttn-date-otr').textContent.trim() !== '';
+    ttnUpdateBtn.disabled = isProcessed;
+    ttnDeletBtn.disabled = isProcessed;
+
+    // Кнопка "Отработать ТТН" активна, если есть хотя бы одна активная позиция
+    const hasActiveInputs = this.hasCheckedInputs();
+    ttnOtrabotBtn.disabled = !hasActiveInputs;
+  } else {
+    ttnUpdateBtn.disabled = true;
+    ttnDeletBtn.disabled = true;
+    ttnOtrabotBtn.disabled = true;
   }
+}
 
   createModalTtn() {
     render(this.ttnModal, this.ttnContainer);
@@ -112,6 +128,60 @@ export default class TtnPresenter {
     }
   }
 
+  async otrTtn() {
+    const activeRow = document.querySelector('.ttn-row.table-active');
+    if (!activeRow) {
+      alert('Выберите накладную для отработки');
+      return;
+    }
+  
+    const ttnId = Number(activeRow.getAttribute('data-ttnId')); // ID накладной
+    const ttnData = this.getActiveRowData(); // Данные накладной
+  
+    // Получаем все спецификации с checked
+    const checkedSpecs = Array.from(document.querySelectorAll('.ttn-spec-check:checked'))
+      .map(input => {
+        const row = input.closest('.ttn-spec-row');
+        return {
+          id: Number(row.querySelector('.ttn-spec-id').textContent), // ID спецификации
+          prep_id: Number(row.querySelector('.ttn-spec-name').getAttribute('data-prep-id')), // ID препарата
+          seria: row.querySelector('.ttn-spec-seria').textContent, // Серия
+          pr_cena_bnds: parseFloat(row.querySelector('.ttn-spec-prbnds').textContent), // Цена производителя без НДС
+          pr_cena_nds: parseFloat(row.querySelector('.ttn-spec-prnds').textContent), // Цена производителя с НДС
+          pc_cena_bnds: parseFloat(row.querySelector('.ttn-spec-pbnds').textContent), // Цена поставщика без НДС
+          pc_cena_nds: parseFloat(row.querySelector('.ttn-spec-pnds').textContent), // Цена поставщика с НДС
+          kol_tov: parseInt(row.querySelector('.ttn-spec-kol').textContent), // Количество
+          tarif: parseFloat(row.querySelector('.ttn-spec-tarif').textContent), // Тариф
+          sklad_id: Number(row.querySelector('.ttn-spec-sklad').getAttribute('data-sklad-id')), // ID склада
+          srok_god: row.querySelector('.ttn-spec-sroc').textContent, // Срок годности
+        };
+      });
+  
+    if (checkedSpecs.length === 0) {
+      alert('Выберите хотя бы одну спецификацию для отработки');
+      return;
+    }
+  
+    try {
+      // Отправляем данные на сервер
+      const response = await this.ttnModel.otrTtn({
+        ttnId,
+        ttnData,
+        checkedSpecs,
+      });
+  
+      if (response.success) {
+        alert('Накладная успешно отработана');
+        await this.init(); // Обновляем данные
+      } else {
+        alert('Ошибка при отработке накладной');
+      }
+    } catch (error) {
+      console.error('Ошибка при отработке накладной:', error);
+      alert('Ошибка при отработке накладной');
+    }
+  }
+
   async deletTtn() {
     const activeRow = document.querySelector('.ttn-row.table-active');
     if (activeRow) {
@@ -137,6 +207,7 @@ export default class TtnPresenter {
         date: activeRow.querySelector('.ttn-date').textContent,
         sklad: activeRow.querySelector('.ttn-sklad').textContent,
         agent: activeRow.querySelector('.ttn-post').textContent,
+        anom:Number(getAnom())
       };
     }
     return null;
@@ -152,6 +223,14 @@ export default class TtnPresenter {
     }
   }
 
+  hasCheckedInputs() {
+    const ttnSpecBody = document.querySelector('.ttn-spec-body');
+    if (ttnSpecBody) {
+      const checkedInputs = ttnSpecBody.querySelectorAll('.ttn-spec-check:not(:disabled):checked');
+      return checkedInputs.length > 0;
+    }
+    return false;
+  }
   bindEvents() {
     // Обработчик для выбора строки в таблице
     const ttnBody = document.querySelector('.ttn-body');
@@ -169,6 +248,14 @@ export default class TtnPresenter {
       console.error('Элемент .ttn-body не найден в DOM.');
     }
 
+    const ttnSpecBody = document.querySelector('.ttn-spec-body');
+    if (ttnSpecBody) {
+      ttnSpecBody.addEventListener('change', (evt) => {
+        if (evt.target.classList.contains('ttn-spec-check')) {
+          this.ttnBtnsControl();
+        }
+      });
+    }
     // Обработчик для кнопки "Добавить ТТН"
     const btnAddTtn = document.querySelector('.ttn_add');
     if (btnAddTtn) {
@@ -192,15 +279,27 @@ export default class TtnPresenter {
     } else {
       console.error('Кнопка .ttn_update не найдена в DOM.');
     }
+    
+    const btnOtrabotka = document.querySelector('.ttn_otr')
+    if (btnOtrabotka) {
+      btnOtrabotka.addEventListener('click', this.otrTtn.bind(this));
+    } else {
+      console.error('Кнопка .ttn_otr не найдена в DOM.');
+    }
+
 
     // Обработчик для фильтра "Неотработанные ТТН" и "Отработанные ТТН"
     const filtersTtn = document.querySelector('.ttn-filter');
     if (filtersTtn) {
       filtersTtn.addEventListener('click', (event) => {
         if (event.target.classList.contains('btn-filter_nootr')) {
-          this.init(false);
+          this.filter=false
+          this.init();
+          this.ttnSpec.refreshTtnSpecList()
         } else if (event.target.classList.contains('btn-filter_otr')) {
-          this.init(true);
+          this.filter=true
+          this.init();
+          this.ttnSpec.refreshTtnSpecList()
         }
       });
     } else {

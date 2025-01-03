@@ -2,13 +2,14 @@ import { createElement } from '../utils/render.js';
 import { normalizeDate } from '../utils/utils.js';
 
 const isActiveFilter = (ttns) => {
-  if (ttns) {
+  if (ttns && ttns.length > 0) {
     return ttns[0].c_id !== 1;
   }
   return false;
 };
 
 const createTtnTemplate = (ttns) => {
+  
   return `
     <div class="ttn-content">
       <div class="ttn-header">
@@ -38,7 +39,7 @@ const createTtnTemplate = (ttns) => {
             </tr>
           </thead>
           <tbody class="ttn-body">
-            ${ttns ? ttns.map(ttn => `
+            ${ttns && ttns.length>0? ttns.map(ttn => `
               <tr class="ttn-row" data-ttnId="${ttn.id}">
                 <td class="ttn-kod">${ttn.id}</td>
                 <td class="ttn-nomer">${ttn.nomnakl}</td>
@@ -47,7 +48,9 @@ const createTtnTemplate = (ttns) => {
                 <td class="ttn-post">${ttn.agent}</td>
                 <td class="ttn-sklad">${ttn.sklad}</td>
               </tr>
-            `).join('') : ''}
+            `).join('') : `  <tr class="ttn-row-null">
+                <td colspan="6" class="text-center">Приходных накладных нет</td>
+              </tr>`}
           </tbody>
         </table>
       </div>
