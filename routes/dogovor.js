@@ -193,4 +193,33 @@ router.get('/dogovors', authMiddleware, async (req, res) => {
     }
   });
 
+  router.get('/dogovory', authMiddleware, async (req, res) => {
+    try {
+      const { agentId } = req.query; // Получаем agentId из query-параметров
+      if (!agentId || isNaN(agentId)) {
+        return res.status(400).json({ error: 'Некорректный ID контрагента' });
+      }
+      const pool = await sql.connect(dbConfig);
+      const result = await pool.request()
+        .input('agentId', sql.Int, agentId)
+        .query(`
+          SELECT 
+            Dogovor.id, 
+            Dogovor.nomer, 
+            Agent.name AS agent_name, 
+            Dogovor.sum, 
+            Dogovor.date
+          FROM Dogovor
+          JOIN Agent ON Dogovor.agent_id = Agent.id
+          WHERE Dogovor.agent_id = @agentId
+        `);
+  
+      // Возвращаем результат
+      res.json(result.recordset);
+    } catch (err) {
+      console.error('Ошибка при получении данных договоров:', err);
+      res.status(500).json({ error: 'Ошибка при получении данных договоров', details: err.message });
+    }
+  });
+
 module.exports = router;

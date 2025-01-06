@@ -12,6 +12,8 @@ const skladRoutes = require('./routes/sklad');
 const paRoutes = require('./routes/pa');
 const paSpecRoutes = require('./routes/paspec');
 const tovarRoutes = require('./routes/tovar');
+const documentRoutes = require('./routes/document');
+const exelRoutes = require('./routes/exel');
 
 const app = express();
 const PORT = 3000;
@@ -32,6 +34,8 @@ app.use('/api', skladRoutes);
 app.use('/api', paRoutes);
 app.use('/api', paSpecRoutes);
 app.use('/api', tovarRoutes);
+app.use('/api', documentRoutes);
+app.use('/api', exelRoutes);
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));

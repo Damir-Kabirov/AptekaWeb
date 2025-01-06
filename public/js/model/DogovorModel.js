@@ -109,4 +109,25 @@ export default class DogovorModel {
     }
   }
 
+  async getDogovoryByAgentId(agentId) {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`/api/dogovory?agentId=${agentId}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Ошибка при загрузке договоров');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Ошибка:', error);
+      throw error;
+    }
+  }
+
 }

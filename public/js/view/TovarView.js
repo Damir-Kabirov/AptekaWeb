@@ -1,12 +1,32 @@
 import { createElement } from '../utils/render.js';
 import { normalizeDate } from '../utils/utils.js';
 
-const createTovarTemplate = (tovars) => {
+// Функция для определения класса в зависимости от срока годности
+function getExpiryClass(expiryDate) {
+  const today = new Date();
+  const expiry = new Date(expiryDate);
+  const timeDiff = expiry - today;
+  const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+  if (daysDiff < 0) {
+    return 'table-danger'; // Просрочен
+  } else if (daysDiff <= 7) {
+    return 'table-warning'; // Истекает через неделю
+  } else if (daysDiff <= 30) {
+    return 'table-primary'; // Истекает через месяц
+  }
+  return ''; // Нет класса
+}
+
+const createTovarTemplate = (tovars, quantityInputValues = {}) => {
   return `
     <div class="tovar-content">
       <div class="tovar-header">
         <h3 class="container_title">Товарные запасы</h3>
-        <button class="btn btn__standart tovar_clear_filter">Очистить фильтры</button>
+        <div class="tovar-btns">
+          <button class="btn btn__standart tovar_creat_document">Создать расход</button>
+          <button class="btn btn__standart tovar_clear_filter">Очистить фильтры</button>
+        </div>
       </div>
       <div class="tovar-actions">
         <div class="tovar-serch">
@@ -38,21 +58,33 @@ const createTovarTemplate = (tovars) => {
               <th scope="col">Срок годности</th>
               <th scope="col">Склад</th>
               <th scope="col">ПА №</th>
+              <th scope="col">Выбр.Кол</th>
             </tr>
           </thead>
           <tbody class="tovar-body">
             ${tovars && tovars.length > 0 ? tovars.map(tovar => `
-              <tr class="tovar-row" data-tovarId="${tovar.id}">
+              <tr class="tovar-row ${getExpiryClass(tovar.expiryDate)}" data-tovarId="${tovar.id}" data-pas-id="${tovar.pasId}">
                 <td class="tovar-strih">${tovar.barcode}</td>
                 <td class="tovar-name">${tovar.name}</td>
                 <td class="tovar-kol">${tovar.quantity}</td>
                 <td class="tovar-srgod">${normalizeDate(tovar.expiryDate)}</td>
                 <td class="tovar-sklad">${tovar.warehouse}</td>
                 <td class="tovar-pa-number">${tovar.paNumber}</td>
+                <td>
+                  <input
+                    type="number"
+                    min="0"
+                    max="${tovar.quantity}"
+                    class="form-control tovar-kol-input"
+                    aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-sm"
+                    value="${quantityInputValues[tovar.id] || 0}"
+                    data-tovar-id="${tovar.id}">
+                </td>
               </tr>
             `).join('') : `
               <tr class="tovar-row">
-                <td colspan="6" class="text-center">Товарные запасы отсутствуют</td>
+                <td colspan="7" class="text-center">Товарные запасы отсутствуют</td>
               </tr>
             `}
           </tbody>
@@ -63,12 +95,13 @@ const createTovarTemplate = (tovars) => {
 };
 
 export default class TovarView {
-  constructor(tovars) {
+  constructor(tovars, quantityInputValues = {}) {
     this.tovars = tovars;
+    this.quantityInputValues = quantityInputValues; // Сохраненные значения полей ввода
   }
 
   getTemplate() {
-    return createTovarTemplate(this.tovars);
+    return createTovarTemplate(this.tovars, this.quantityInputValues);
   }
 
   getElement() {

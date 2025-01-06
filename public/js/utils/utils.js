@@ -48,4 +48,39 @@ function generateEAN13(pas_id, anom) {
     return `${padded}${checksum}`;
   }
 
-export {normalizeDate,removeClassFromChildren,getAnom,generateEAN13}
+  function createAlert(text, type = 'warning') {
+    // Создаем элемент div для уведомления
+    const alertElement = document.createElement('div');
+    alertElement.className = `alert alert-${type} alert-dismissible fade show`;
+    alertElement.setAttribute('role', 'alert');
+  
+    // Создаем элемент <p> для текста уведомления
+    const alertTextElement = document.createElement('p');
+    alertTextElement.className = 'alert-text';
+    alertTextElement.textContent = text; // Добавляем текст в <p>
+  
+    // Добавляем <p> с текстом в уведомление
+    alertElement.appendChild(alertTextElement);
+  
+    // Создаем кнопку закрытия
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'btn-close btn-alert'; // Добавляем класс btn-alert
+    closeButton.setAttribute('data-bs-dismiss', 'alert');
+    closeButton.setAttribute('aria-label', 'Закрыть');
+  
+    // Добавляем кнопку закрытия в уведомление
+    alertElement.appendChild(closeButton);
+  
+    // Вставляем уведомление в начало body
+    document.body.insertBefore(alertElement, document.body.firstChild);
+  
+    // Удаляем уведомление через 10 секунд
+    setTimeout(() => {
+      alertElement.remove();
+    }, 5000); // 5 секунд
+  }
+
+
+
+export {normalizeDate,removeClassFromChildren,getAnom,generateEAN13,createAlert}

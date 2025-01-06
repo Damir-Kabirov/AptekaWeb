@@ -16,6 +16,7 @@ const createPaTemplate = (pas) => {
         <div class="ttn-btns">
           <button class="btn btn__standart pa_delet" disabled>Удалить ПА</button>
           <button class="btn btn__standart pa_otr" disabled>Отработать ПА</button>
+          <button class="btn btn__standart pa_dow">Распечатать</button>
         </div>
       </div>
       <div class="pa-filter">

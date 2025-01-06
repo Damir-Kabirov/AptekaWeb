@@ -12,3 +12,15 @@
 .btn_serch_tovar{
     padding: 4px 9px;
 }
+.tovar-kol-input{
+    max-width: 100px;
+}
+.agent-serch-group{
+    margin: 35px 0px;
+}
+.act-beznal-group .input-group {
+    margin-top: 25px;
+}
+.act-spisan-group{
+    display: flex;
+}

@@ -78,6 +78,14 @@ export default class PaPresenter {
       console.error('Кнопка .pa_otr не найдена в DOM.');
     }
 
+    // Обработчик для кнопки "Распечатать"
+    const btnPrintPa = document.querySelector('.pa_dow');
+    if (btnPrintPa) {
+      btnPrintPa.addEventListener('click', this.printPa.bind(this));
+    } else {
+      console.error('Кнопка .pa_dow не найдена в DOM.');
+    }
+
     // Обработчик для фильтра "Неотработанные ПА" и "Отработанные ПА"
     const filtersPa = document.querySelector('.pa-filter');
     if (filtersPa) {
@@ -136,6 +144,21 @@ export default class PaPresenter {
         console.error('Ошибка при отработке приемного акта:', error);
         alert('Ошибка при отработке приемного акта');
       }
+    }
+  }
+
+  async printPa() {
+    const activeRow = document.querySelector('.pa-row.table-active');
+    if (activeRow) {
+      const paId = Number(activeRow.getAttribute('data-paId'));
+      try {
+        await this.paModel.downloadPaExcel(paId); // Скачиваем Excel-файл
+      } catch (error) {
+        console.error('Ошибка при скачивании файла:', error);
+        alert('Ошибка при скачивании файла');
+      }
+    } else {
+      alert('Выберите приемный акт для скачивания.');
     }
   }
 }

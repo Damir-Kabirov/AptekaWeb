@@ -20,12 +20,9 @@ router.get('/agents', authMiddleware, async (req, res) => {
 });
 
 router.get('/agents/find', authMiddleware, async (req, res) => {
-  console.log('Запрос получен:', req.url); // Логируем URL запроса
-  console.log('Параметры запроса:', req.query); // Логируем все параметры запроса
+
   try {
     const { inn, kpp } = req.query;
-    console.log('ИНН:', inn);
-    console.log('КПП:', kpp);
     if (!inn || !kpp) {
       return res.status(400).json({ error: 'Необходимо указать ИНН и КПП' });
     }
