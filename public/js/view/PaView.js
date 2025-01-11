@@ -11,7 +11,7 @@ const isActiveFilter = (pas) => {
 const createPaTemplate = (pas) => {
   return `
     <div class="pa-content">
-      <div class="pa-header">
+      <div class="pa-header akt-header">
         <h3 class="container_title">Приемные акты</h3>
         <div class="ttn-btns">
           <button class="btn btn__standart pa_delet" disabled>Удалить ПА</button>
@@ -19,13 +19,13 @@ const createPaTemplate = (pas) => {
           <button class="btn btn__standart pa_dow">Распечатать</button>
         </div>
       </div>
-      <div class="pa-filter">
+      <div class="pa-filter akt-filter">
         <button class="btn btn-filter btn-filter_nootr ${isActiveFilter(pas) ? '' : 'active-btn'}">Неотработанные ПА</button>
         <button class="btn btn-filter btn-filter_otr ${isActiveFilter(pas) ? 'active-btn' : ''}">Отработанные ПА</button>
       </div>
-      <div class="table-responsive pa-container">
+      <div class="table-responsive pa-container akt-container">
         <table class="table caption-top pa-table table-hover">
-          <caption class="pa-title">Приемные акты</caption>
+          <caption class="pa-title akt-title">Приемные акты</caption>
           <thead class="pa-thead">
             <tr class="pa-colums table-info">
               <th scope="col">Код акта</th>

@@ -1,18 +1,19 @@
-.pa-header{
+.akt-header{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
-.pa-header{
+.akt-header{
     margin-bottom: 20px;
 }
-.pa-filter{
+.akt-filter{
     margin-bottom: 30px;
 }
-.pa-title{
+.akt-title{
     font-size: 24px;
 }
-.pa-spec-container{
+.akt-spec-container{
     max-height: 35vh;
     max-width: 85vw;
     text-align: center;
@@ -20,14 +21,14 @@
     white-space: nowrap;
     margin: 0 auto;
 }
-.pa-container{
+.akt-container{
     max-height: 35vh;
     max-width: 85vw;
     margin: 0 auto;
 }
-.pa-spec-content{
+.akt-spec-content{
     margin-top: 40px;
 }
-.pa-spec-btns{
+.akt-spec-btns{
     margin-bottom: 20px;
 }

@@ -24,13 +24,17 @@ const createWorkWindowTemplate = ()=>{
                     <li class="submenu-item"><a  class="load-dogovor" href="#">Договоры</a>
                 </ul>
             </li>
-              <li class="nav-item"><a  class="nav-item-link" href="#">Отгрузка товара</a></li>
+              <li class="nav-item"><a  class="nav-item-link" href="#">Расходные акты</a>
+              <ul class="submenu">
+                    <li class="submenu-item"><a class="load-aktBo" href="#">Акты безналичного отпуска</a>
+                    <li class="submenu-item"><a  class="load-aktSps" href="#">Акты списания</a>
+                </ul>
+              </li>
             </ul>
           </aside>
         
           <main class="content">
-            <h1>Основной контент</h1>
-            <p>Это пример страницы с боковой панелью.</p>
+          
           </main>
     </section>
       `

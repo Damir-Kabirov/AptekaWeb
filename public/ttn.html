@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/ttn.css">
     <link rel="stylesheet" href="./css/pa.css">
     <link rel="stylesheet" href="./css/tov.css">
+    <link rel="stylesheet" href="./css/akts.css">
 </head>
 <body>
   <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -36,103 +37,50 @@
           </aside> -->
         
           <main class="content">
-            <!-- <div class="tov-content">
-                <div class="tov-header">
-                    <h3 class="container_title">Товарные запасы</h3>
-                    <div class="tov-btns">
-                      <button class="btn btn__standart tov_serch">Поиск</button>
-                      <button class="btn btn__standart tov_filter">Мониторинг сроков годности</button>
-                      <button class="btn btn__standart tov_clear_filter">Ощистить фильтры</button>
-                    </div>
-                 </div>
-       
-                <div class="tov-filter"></div>
-                <div class="table-responsive tov-container ">
-                    <table class="table caption-top tov-table  table-hover ">
-                        <caption class="tov-title">Приемные акты</caption>
-                         <thead class="tov-thead">
-                             <tr class="tov-colums table-info">
-                                <th scope="col">Штрих код</th>
-                                <th scope="col">Наименование</th>
-                                <th scope="col">Количество</th>
-                                <th scope="col">Срок годности</th>
-                                <th scope="col">Склад</th>
-                                <th scope="col">ПА №</th>
-                            </tr>
-                         </thead>
-                         <tbody>
-                            <tr class="tov-row">
-                                <td class="tov-strih ">0000001233</td>
-                                <td class="tov-name">Парацетамол</td>
-                                <td class="tov-kol">4</td>
-                                <td class="tov-srgod">01.08.2024</td>
-                                <td class="tov-sklad">Розница</td>
-                                <td class="tov-pa-number">2025-001</td>
-                            </tr>
-                          </tbody>
-                    </table>
+            <div class="aktBo-content">
+              <div class="aktBo-header akt-header">
+                <h3 class="container_title">Акты безналичного отпуска</h3>
+                <div class="ttn-btns">
+                  <button class="btn btn__standart aktBo_delet" disabled>Удалить акт</button>
+                  <button class="btn btn__standart aktBo_otr" disabled>Отработать акт</button>
+                  <button class="btn btn__standart aktBo_dow">Распечатать акт</button>
                 </div>
-            </div> -->
-            
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#docCreathModal">
-              Запустите демо модального окна
-            </button>
-  
-  <!-- Modal -->
-  <div class="document-create-modal modal fade modal-xl" id="docCreathModal" tabindex="1" aria-labelledby="docCreatModalLabel" aria-hidden="true" >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Создать документ расхода</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body tov-serch-modal-body">
-            <div class="input-group input-group-lg">
-              <label class="input-group-text" for="inputGroupSelect01">Тип документа</label>
-              <select class="form-select document-type-select" id="inputGroupSelect01">
-                <option value="1">Списание</option>
-                <option value="2">Акт безналичного отпуска</option>
-              </select>
-                <span class="input-group-text" id="inputGroup-sizing-sm">Дата документа</span>
-                <input type="date"  class="form-control document-date-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            </div>
-            <div class="act-beznal-group">
-              <div class="input-group input-group-lg">
-                <span class="input-group-text" id="inputGroup-sizing-sm">ИНН</span>
-                <input type="number"  class="form-control agent-inn-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                  <span class="input-group-text" id="inputGroup-sizing-sm">КПП</span>
-                  <input type="number"  class="form-control agent-kpp-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                  <button type="button" class="btn btn-primary btn-serch-agent">Найти контрагента</button>
               </div>
-              <div class="input-group input-group-lg">
-                <span class="input-group-text" id="inputGroup-sizing-sm">Контрагент</span>
-                <input type="text" readonly class="form-control document-agent-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" data-agent-id="">
+              <div class="aktBo-filter akt-filter">
+                <button class="btn btn-filter btn-filter_nootr ${isActiveFilter(pas) ? '' : 'active-btn'}">Неотработанные </button>
+                <button class="btn btn-filter btn-filter_otr ${isActiveFilter(pas) ? 'active-btn' : ''}">Отработанные</button>
               </div>
-              <div class="input-group input-group-lg">
-                <label class="input-group-text" for="inputGroupSelect01">Договор</label>
-                <select class="form-select dogovor-select" id="inputGroupSelect01">
-                  <option value="1">Один</option>
-                  <option value="2">Два</option>
-                  <option value="3">Три</option>
-                </select>
+              <div class="table-responsive aktBo-container akt-container">
+                <table class="table caption-top aktBo-table table-hover">
+                  <caption class="aktBo-title akt-title">Акты безналичного отпуска</caption>
+                  <thead class="aktBo-thead">
+                    <tr class="aktBo-colums table-info">
+                      <th scope="col">Код акта</th>
+                      <th scope="col">Номер акта</th>
+                      <th scope="col">Дата акта</th>
+                      <th scope="col">Дата отработки акта</th>
+                      <th scope="col">Контрагент</th>
+                      <th scope="col">Договор</th>
+                      <th scope="col">Адрес грузополучателя</th>
+                    </tr>
+                  </thead>
+                  <tbody class="aktBo-body ">
+                      <tr class="aktBo-row" data-aktBoId="">
+                        <td class="aktBo-kod">${pa.id}</td>
+                        <td class="aktBo-nomer">${pa.number}</td>
+                        <td class="aktBo-date">${normalizeDate(pa.date)}</td>
+                        <td class="aktBo-date-otr">${pa.processed_date ? normalizeDate(pa.processed_date) : ''}</td>
+                        <td class="aktBo-post">${pa.supplier}</td>
+                        <td class="aktBo-dogovor">${pa.warehouse}</td>
+                        <td class="aktBo-post-adres">${pa.ttn_number}</td>
+                      </tr>
+                      <tr class="aktBo-row">
+                        <td colspan="7" class="text-center">Акты безналичного отпуска отсутствуют</td>
+                      </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
-            <div class="input-group input-group-lg act-spisan-group">
-              <label class="input-group-text" for="inputGroupSelect01">Причина списания</label>
-              <select class="form-select dogovor-select" id="inputGroupSelect01">
-                <option value="Брак">Брак</option>
-                <option value="Вышел срок годности">Вышел срок годности</option>
-                <option value="Расход по аптечному производству">Расход по аптечному производству</option>
-              </select>
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-          <button type="button" class="btn btn-primary">Создать</button>
-        </div>
-      </div>
-    </div>
-  </div>
 </main>
     </section> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>

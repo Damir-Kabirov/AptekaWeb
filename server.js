@@ -14,7 +14,8 @@ const paSpecRoutes = require('./routes/paspec');
 const tovarRoutes = require('./routes/tovar');
 const documentRoutes = require('./routes/document');
 const exelRoutes = require('./routes/exel');
-
+const aktRoutes = require('./routes/akt')
+const aktBoSpec = require('./routes/akt-bo-spec')
 const app = express();
 const PORT = 3000;
 app.use(express.static(path.join(__dirname, 'public')));
@@ -36,7 +37,8 @@ app.use('/api', paSpecRoutes);
 app.use('/api', tovarRoutes);
 app.use('/api', documentRoutes);
 app.use('/api', exelRoutes);
-
+app.use('/api', aktRoutes);
+app.use('/api', aktBoSpec);
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });

@@ -151,6 +151,7 @@ export default class PaPresenter {
     const activeRow = document.querySelector('.pa-row.table-active');
     if (activeRow) {
       const paId = Number(activeRow.getAttribute('data-paId'));
+      console.log(paId)
       try {
         await this.paModel.downloadPaExcel(paId); // Скачиваем Excel-файл
       } catch (error) {

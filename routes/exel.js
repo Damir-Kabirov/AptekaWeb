@@ -15,7 +15,8 @@ router.get('/pas/export/:paId', authMiddleware, async (req, res) => {
 
     // Запрос данных о приемном акте
     const paResult = await pool.request()
-      .input('anom', sql.Int, paId)
+      .input('paId', sql.Int, paId)
+      
       .query(`
         SELECT 
           PRIEM_AKT.id, 
@@ -31,7 +32,7 @@ router.get('/pas/export/:paId', authMiddleware, async (req, res) => {
         JOIN Agent ON Agent.id = PRIEM_AKT.agent_id
         JOIN Sklad ON Sklad.id = PRIEM_AKT.sklad_id
         LEFT JOIN TTN ON TTN.id = PRIEM_AKT.ttn_id
-        WHERE PRIEM_AKT.anom = @anom
+        WHERE PRIEM_AKT.id = @paId 
       `);
 
     // Запрос данных о спецификациях приемного акта
@@ -129,7 +130,7 @@ router.get('/pas/export/:paId', authMiddleware, async (req, res) => {
     });
 
     // Добавление итоговой суммы
-    const totalAmount = specData.reduce((sum, spec) => sum + (spec.pc_cena_nds * spec.kol_tov), 0);
+    const totalAmount = specData.reduce((sum, spec) => sum + (spec.rcena * spec.kol_tov), 0);
     worksheet.addRow([]);
     worksheet.addRow(['Итого:', '', '', '', '', '', '', '', '', '', totalAmount]);
 
@@ -145,7 +146,7 @@ router.get('/pas/export/:paId', authMiddleware, async (req, res) => {
     );
     res.setHeader(
       'Content-Disposition',
-      `attachment; filename=Приемный акт ${paData.number}.xlsx`
+      `attachment; filename=${encodeURIComponent(`Приемный акт ${paData.number}.xlsx`)}`
     );
 
     await workbook.xlsx.write(res);

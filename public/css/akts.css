@@ -1,0 +1,9 @@
+.aktBo-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.aktBo-filter{
+    margin-bottom: 30px;
+}

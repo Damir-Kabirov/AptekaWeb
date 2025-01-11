@@ -8,6 +8,7 @@ import AuthPresenter from './AuthPresenter.js';
 import TTNPresenter from './TtnPresenter.js';
 import PaPresenter from './PaPresenter.js';
 import TovarPresenter from './TovarPresentor.js';
+import AktBoPresenter from './AktBoPresenter.js'
 import { render } from '../utils/render.js';
 
 export default class MainPresenter {
@@ -61,6 +62,10 @@ export default class MainPresenter {
     const tovarLink = this.container.querySelector('.load-tovar');
     if (tovarLink) {
       tovarLink.addEventListener('click', this.handleTovarClick.bind(this));
+    }
+    const aktBoLink = this.container.querySelector('.load-aktBo');
+    if (aktBoLink) {
+      aktBoLink.addEventListener('click', this.handleAktBoClick.bind(this));
     }
 
   }
@@ -134,6 +139,25 @@ export default class MainPresenter {
   
     // Инициализация TTNPresenter с двумя контейнерами
     const paPresenter = new PaPresenter(paContainer, paSpecContainer);
+    paPresenter.init();
+  }
+  handleAktBoClick(e) {
+    e.preventDefault();
+    const contentContainer = this.container.querySelector('.content');
+    contentContainer.innerHTML = '';
+  
+    
+    const aktContainer = document.createElement('div');
+    aktContainer.classList.add('akt-block');
+    contentContainer.appendChild(aktContainer);
+  
+ 
+    const aktSpecContainer = document.createElement('div');
+    aktSpecContainer.classList.add('akt-spec-block');
+    contentContainer.appendChild(aktSpecContainer);
+  
+    
+    const paPresenter = new AktBoPresenter(aktContainer, aktSpecContainer);
     paPresenter.init();
   }
   handleTovarClick(e) {

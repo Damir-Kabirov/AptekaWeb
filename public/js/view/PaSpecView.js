@@ -5,13 +5,13 @@ import { generateEAN13 } from '../utils/utils.js';
 
 const createPaSpecTemplate = (paspec) => {
     return `
-      <div class="pa-spec-content">
-        <div class="pa-spec-btns">
+      <div class="pa-spec-content akt-spec-content">
+        <div class="pa-spec-btns akt-spec-btns">
           <button class="btn btn__standart pa_update" data-bs-toggle="modal" data-bs-target="#paModal">Наценить позицию</button>
         </div>
-        <div class="table-responsive pa-spec-container">
+        <div class="table-responsive pa-spec-container akt-spec-container">
           <table class="table caption-top pa-spec-table table-bordered">
-            <caption class="pa-title">Спецификация приемного акта</caption>
+            <caption class="pa-title akt-title">Спецификация приемного акта</caption>
             <thead class="pa-thead">
               <tr class="pa-colums table-info">
                 <th scope="col">Штрих код</th>
