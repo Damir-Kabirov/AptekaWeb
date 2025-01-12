@@ -8,7 +8,8 @@ import AuthPresenter from './AuthPresenter.js';
 import TTNPresenter from './TtnPresenter.js';
 import PaPresenter from './PaPresenter.js';
 import TovarPresenter from './TovarPresentor.js';
-import AktBoPresenter from './AktBoPresenter.js'
+import AktBoPresenter from './AktBoPresenter.js';
+import OthetPresenter from './OthetPresentor.js';
 import { render } from '../utils/render.js';
 
 export default class MainPresenter {
@@ -67,7 +68,14 @@ export default class MainPresenter {
     if (aktBoLink) {
       aktBoLink.addEventListener('click', this.handleAktBoClick.bind(this));
     }
-
+    const aktSPSLink = this.container.querySelector('.load-aktSps');
+    if (aktSPSLink) {
+      aktSPSLink.addEventListener('click', this.handleAktSpsClick.bind(this));
+    }
+    const othetLink = this.container.querySelector('.load-othet');
+    if (othetLink) {
+      othetLink.addEventListener('click', this.handleOthetClick.bind(this));
+    }
   }
 
   handleNomenclatorClick(e) {
@@ -92,6 +100,13 @@ export default class MainPresenter {
     contentContainer.innerHTML = '';
     const dogovorPresenter = new DogovorPresenter(contentContainer);
     dogovorPresenter.init();
+  }
+  handleOthetClick(e) {
+    e.preventDefault();
+    const contentContainer = this.container.querySelector('.content');
+    contentContainer.innerHTML = '';
+    const othetPresenter = new OthetPresenter (contentContainer);
+    othetPresenter.init();
   }
 
   handleLogout() {
@@ -157,7 +172,7 @@ export default class MainPresenter {
     contentContainer.appendChild(aktSpecContainer);
   
     
-    const paPresenter = new AktBoPresenter(aktContainer, aktSpecContainer);
+    const paPresenter = new AktBoPresenter(aktContainer, aktSpecContainer,'BO');
     paPresenter.init();
   }
   handleTovarClick(e) {
@@ -166,5 +181,24 @@ export default class MainPresenter {
     contentContainer.innerHTML = '';
     const tovarPresenter = new TovarPresenter(contentContainer);
     tovarPresenter.init();
+  }
+  handleAktSpsClick(e) {
+    e.preventDefault();
+    const contentContainer = this.container.querySelector('.content');
+    contentContainer.innerHTML = '';
+  
+    
+    const aktContainer = document.createElement('div');
+    aktContainer.classList.add('akt-block');
+    contentContainer.appendChild(aktContainer);
+  
+ 
+    const aktSpecContainer = document.createElement('div');
+    aktSpecContainer.classList.add('akt-spec-block');
+    contentContainer.appendChild(aktSpecContainer);
+  
+    
+    const paPresenter = new AktBoPresenter(aktContainer, aktSpecContainer,'SPS');
+    paPresenter.init();
   }
 }

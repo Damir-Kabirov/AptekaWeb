@@ -10,12 +10,10 @@
     <link rel="stylesheet" href="./css/pa.css">
     <link rel="stylesheet" href="./css/tov.css">
     <link rel="stylesheet" href="./css/akts.css">
+    <link rel="stylesheet" href="./css/prihod.css">
+    <link rel="stylesheet" href="./css/othet.css">
 </head>
 <body>
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <p class="alert-text">Святой гуакамоле! Вам следует проверить некоторые из этих полей ниже.</p>
-    <button type="button" class="btn-close btn-alert" data-bs-dismiss="alert" aria-label="Закрыть"></button>
-  </div>
      <section class="work-window">
         <!-- <aside class="sidebar">
             <ul class="nav">
@@ -37,50 +35,109 @@
           </aside> -->
         
           <main class="content">
-            <div class="aktBo-content">
-              <div class="aktBo-header akt-header">
-                <h3 class="container_title">Акты безналичного отпуска</h3>
-                <div class="ttn-btns">
-                  <button class="btn btn__standart aktBo_delet" disabled>Удалить акт</button>
-                  <button class="btn btn__standart aktBo_otr" disabled>Отработать акт</button>
-                  <button class="btn btn__standart aktBo_dow">Распечатать акт</button>
+           <div class="othet-conteiner">
+              <div class="othet-header">
+                <h2 class="container_title">Материальный отчет</h2>
+                <div class="othet_action">
+                  <div class="input-group input-group-lg othet-input-group othet-periud-select">
+                    <label class="input-group-text" for="inputGroupSelect01">Периуд</label>
+                    <select name="date" id="date" class="form-select othet-date-select"></select>
+                  </div>
+                  <div class="othet-btns">
+                    <button class="btn btn__standart otchet-create">Cформировать отчет</button>
+                    <button class="btn btn__standart otchet-print">Распечатать отчет</button>
+                  </div>
                 </div>
               </div>
-              <div class="aktBo-filter akt-filter">
-                <button class="btn btn-filter btn-filter_nootr ${isActiveFilter(pas) ? '' : 'active-btn'}">Неотработанные </button>
-                <button class="btn btn-filter btn-filter_otr ${isActiveFilter(pas) ? 'active-btn' : ''}">Отработанные</button>
+              <div class="other-body">
+                <div class="othet-section section-ost-start">
+                  <h4 class="othet-subtitle">Остаток на начало</h4>
+                  <div class="input-group input-group-lg otchet-input-group">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Остаток суммы на начало</span>
+                    <input readonly  type="text" class="form-control start-ost-input-sum" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Остаток колличества на начало</span>
+                    <input readonly  type="number" class="form-control start-ost-input-kol" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                  </div>
+                  <h4 class="othet-subtitle othet-subtitle_min">В том числе:</h4>
+                  <div class="input-group input-group-lg otchet-input-group">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Склад розница сумма</span>
+                    <input readonly  type="text" class="form-control start-ost-input-sum-rozn" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Склад розница количество</span>
+                    <input readonly  type="number" class="form-control start-ost-input-kol-rozn" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Склад Апт.произ сумма</span>
+                    <input readonly  type="text" class="form-control start-ost-input-sum-rozn" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Склад Апт.произ количество</span>
+                    <input readonly  type="number" class="form-control start-ost-input-kol-rozn" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                  </div>  
+                </div>
+                <div class="othet-section section-prihod">
+                  <h4 class="othet-subtitle">Приход</h4>
+                  <div class="input-group input-group-lg otchet-input-group">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Приход сумма</span>
+                    <input readonly  type="text" class="form-control prihod-input-sum" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Приход количество</span>
+                    <input readonly  type="number" class="form-control prihod-input-kol" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                  </div>
+                  <h4 class="othet-subtitle othet-subtitle_min">В том числе:</h4>
+                  <div class="input-group input-group-lg otchet-input-group">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Склад розница сумма</span>
+                    <input readonly  type="text" class="form-control prihod-input-sum-rozn" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Склад розница количество</span>
+                    <input readonly  type="number" class="form-control prihod-input-kol-rozn" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Склад Апт.произ сумма</span>
+                    <input readonly  type="text" class="form-control prihod-input-sum-rozn" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Склад Апт.произ количество</span>
+                    <input readonly  type="number" class="form-control prihod-input-kol-rozn" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                  </div>  
+                </div>
+                <div class="othet-section section-rashod">
+                  <h4 class="othet-subtitle">Расход</h4>
+                  <div class="input-group input-group-lg otchet-input-group">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Расход сумма</span>
+                    <input readonly  type="text" class="form-control rashod-input-sum" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Расход количество</span>
+                    <input readonly  type="number" class="form-control rashod-input-kol" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                  </div>
+                  <h4 class="othet-subtitle othet-subtitle_min">В том числе:</h4>
+                  <div class="input-group input-group-lg otchet-input-group">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Акты безналичного отпуска(сумма)</span>
+                    <input readonly  type="text" class="form-control rashod-input-sum-abo" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Акты списания (сумма)</span>
+                    <input readonly  type="number" class="form-control rashod-input-sum-aktsps" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Акты расхода аптечного производства (сумма)</span>
+                    <input readonly  type="text" class="form-control rashod-input-sum-arap" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                  </div>
+                  <div class="input-group input-group-lg otchet-input-group">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Акты безналичного отпуска(кол.)</span>
+                    <input readonly  type="text" class="form-control rashod-input-kol-abo" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Акты списания (кол.)</span>
+                    <input readonly  type="number" class="form-control rashod-input-kol-aktsps" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Акты расхода аптечного производства (кол.)</span>
+                    <input readonly  type="text" class="form-control rashod-input-kol-arap" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                  </div>  
+                </div>
+                <div class="othet-section section-ost-end">
+                  <h4 class="othet-subtitle">Остаток на конец</h4>
+                  <div class="input-group input-group-lg otchet-input-group">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Остаток суммы на конец</span>
+                    <input readonly  type="text" class="form-control end-ost-input-sum" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Остаток колличества на конец</span>
+                    <input readonly  type="number" class="form-control end-ost-input-kol" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                  </div>
+                  <h4 class="othet-subtitle othet-subtitle_min">В том числе:</h4>
+                  <div class="input-group input-group-lg otchet-input-group">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Склад розница сумма</span>
+                    <input readonly  type="text" class="form-control end-ost-input-sum-rozn" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Склад розница количество</span>
+                    <input readonly  type="number" class="form-control end-ost-input-kol-rozn" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Склад Апт.произ сумма</span>
+                    <input readonly  type="text" class="form-control end-ost-input-sum-rozn" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Склад Апт.произ количество</span>
+                    <input readonly  type="number" class="form-control end-ost-input-kol-rozn" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                  </div>  
+                </div>
               </div>
-              <div class="table-responsive aktBo-container akt-container">
-                <table class="table caption-top aktBo-table table-hover">
-                  <caption class="aktBo-title akt-title">Акты безналичного отпуска</caption>
-                  <thead class="aktBo-thead">
-                    <tr class="aktBo-colums table-info">
-                      <th scope="col">Код акта</th>
-                      <th scope="col">Номер акта</th>
-                      <th scope="col">Дата акта</th>
-                      <th scope="col">Дата отработки акта</th>
-                      <th scope="col">Контрагент</th>
-                      <th scope="col">Договор</th>
-                      <th scope="col">Адрес грузополучателя</th>
-                    </tr>
-                  </thead>
-                  <tbody class="aktBo-body ">
-                      <tr class="aktBo-row" data-aktBoId="">
-                        <td class="aktBo-kod">${pa.id}</td>
-                        <td class="aktBo-nomer">${pa.number}</td>
-                        <td class="aktBo-date">${normalizeDate(pa.date)}</td>
-                        <td class="aktBo-date-otr">${pa.processed_date ? normalizeDate(pa.processed_date) : ''}</td>
-                        <td class="aktBo-post">${pa.supplier}</td>
-                        <td class="aktBo-dogovor">${pa.warehouse}</td>
-                        <td class="aktBo-post-adres">${pa.ttn_number}</td>
-                      </tr>
-                      <tr class="aktBo-row">
-                        <td colspan="7" class="text-center">Акты безналичного отпуска отсутствуют</td>
-                      </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+           </div>
 </main>
     </section> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>

@@ -6,10 +6,10 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 // Маршрут для создания документа и его спецификации
 router.post('/documents', authMiddleware, async (req, res) => {
-  const { documentData, documentSpecs } = req.body;
+  const { documentData, documentSpecs, anom } = req.body; // Добавляем anom
 
   // Деструктуризация данных
-  const { name, date, sklad_name, privoz, c_id, spis_reason, anom, agent_id, dogovor_id } = documentData;
+  const { name, date, sklad_name, privoz, c_id, spis_reason, agent_id, dogovor_id } = documentData;
 
   const transaction = new sql.Transaction();
   try {
@@ -92,9 +92,9 @@ router.post('/documents', authMiddleware, async (req, res) => {
     if (c_id === '5') {
       // Для списания не передаем agent_id и dogovor_id
       query = `
-        INSERT INTO Document (name, date, sklad_id, privoz, c_id, spis_reason, nom_rec)
+        INSERT INTO Document (name, date, sklad_id, privoz, c_id, spis_reason, nom_rec, anom)
         OUTPUT INSERTED.id
-        VALUES (@name, @date, @sklad_id, @privoz, @c_id, @spis_reason, @nom_rec)
+        VALUES (@name, @date, @sklad_id, @privoz, @c_id, @spis_reason, @nom_rec, @anom)
       `;
       inputs = [
         { name: 'name', type: sql.VarChar, value: name },
@@ -104,13 +104,14 @@ router.post('/documents', authMiddleware, async (req, res) => {
         { name: 'c_id', type: sql.Int, value: c_id },
         { name: 'spis_reason', type: sql.VarChar, value: spis_reason },
         { name: 'nom_rec', type: sql.VarChar, value: nom_rec },
+        { name: 'anom', type: sql.Int, value: anom }, // Добавляем anom
       ];
     } else {
       // Для акта безналичного отпуска передаем agent_id и dogovor_id
       query = `
-        INSERT INTO Document (name, date, sklad_id, privoz, c_id, spis_reason, nom_rec, agent_id, dogovor_id)
+        INSERT INTO Document (name, date, sklad_id, privoz, c_id, spis_reason, nom_rec, agent_id, dogovor_id, anom)
         OUTPUT INSERTED.id
-        VALUES (@name, @date, @sklad_id, @privoz, @c_id, @spis_reason, @nom_rec, @agent_id, @dogovor_id)
+        VALUES (@name, @date, @sklad_id, @privoz, @c_id, @spis_reason, @nom_rec, @agent_id, @dogovor_id, @anom)
       `;
       inputs = [
         { name: 'name', type: sql.VarChar, value: name },
@@ -122,6 +123,7 @@ router.post('/documents', authMiddleware, async (req, res) => {
         { name: 'nom_rec', type: sql.VarChar, value: nom_rec },
         { name: 'agent_id', type: sql.Int, value: agent_id },
         { name: 'dogovor_id', type: sql.Int, value: dogovor_id },
+        { name: 'anom', type: sql.Int, value: anom }, // Добавляем anom
       ];
     }
 

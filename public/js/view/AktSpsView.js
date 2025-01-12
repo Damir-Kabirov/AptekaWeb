@@ -41,8 +41,8 @@ const createAktSpSTemplate = (akts) => {
                   <td class="aktBo-kod">${akt.id}</td>
                   <td class="aktBo-nomer">${akt.number}</td>
                   <td class="aktBo-date">${normalizeDate(akt.date)}</td>
-                  <td class="aktBo-date-otr">${akts.otr_date ? normalizeDate(akt.otr_date) : ''}</td>
-                  <td class="aktSps-prichina">${akt.prichina}</td>
+                  <td class="aktBo-date-otr">${akts.processed_date ? normalizeDate(akt.processed_date) : ''}</td>
+                  <td class="aktBo-prichina">${akt.spis_reason}</td>
                 </tr>
               `).join('') : `
                 <tr class="aktBo-row">

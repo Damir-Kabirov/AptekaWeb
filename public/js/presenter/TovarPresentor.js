@@ -1,4 +1,3 @@
-import { render } from '../utils/render.js';
 import { getAnom,createAlert } from '../utils/utils.js';
 import TovarModel from '../model/TovarModel.js';
 import TovarView from '../view/TovarView.js';
@@ -420,7 +419,7 @@ export default class TovarPresenter {
    
   
       // Создаем документ и спецификации
-      const result = await this.tovarModel.createDocumentWithSpec(documentData, documentSpecs);
+      const result = await this.tovarModel.createDocumentWithSpec(documentData, documentSpecs,getAnom());
   
       // Очищаем форму и закрываем модальное окно
       this.clearForm(modalElement); // Очистка формы

@@ -1,0 +1,21 @@
+.othet_action{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 35px;
+    margin-bottom: 55px;
+}
+.othet-periud-select{
+    max-width: 500px;
+}
+.othet-subtitle{
+    font-size: 26px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.othet-subtitle_min{
+    font-size: 20px;
+}
+.othet-section{
+    margin-top: 45px;
+}

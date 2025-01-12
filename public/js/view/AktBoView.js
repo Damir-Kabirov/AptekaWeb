@@ -43,7 +43,7 @@ const createAktBoTemplate = (akts) => {
                   <td class="aktBo-kod">${akt.id}</td>
                   <td class="aktBo-nomer">${akt.number}</td>
                   <td class="aktBo-date">${normalizeDate(akt.date)}</td>
-                  <td class="aktBo-date-otr">${akts.otr_date ? normalizeDate(akt.otr_date) : ''}</td>
+                  <td class="aktBo-date-otr">${akt.processed_date? normalizeDate(akt.processed_date) : " "}</td>
                   <td class="aktBo-post">${akt.agent_name}</td>
                   <td class="aktBo-dogovor" data-dogovor-id=${akt.dogovor_id}>${akt.dogovor_number?akt.dogovor_number:''}</td>
                   <td class="aktBo-post-adres">${akt.adress}</td>

@@ -16,6 +16,7 @@ const documentRoutes = require('./routes/document');
 const exelRoutes = require('./routes/exel');
 const aktRoutes = require('./routes/akt')
 const aktBoSpec = require('./routes/akt-bo-spec')
+const othet = require('./routes/othet')
 const app = express();
 const PORT = 3000;
 app.use(express.static(path.join(__dirname, 'public')));
@@ -39,6 +40,7 @@ app.use('/api', documentRoutes);
 app.use('/api', exelRoutes);
 app.use('/api', aktRoutes);
 app.use('/api', aktBoSpec);
+app.use('/api', othet);
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });

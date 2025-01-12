@@ -62,7 +62,7 @@ export default class TovarModel {
         }
       }
 
-      async createDocumentWithSpec(documentData, documentSpecs) {
+      async createDocumentWithSpec(documentData, documentSpecs,anom) {
         try {
           const token = localStorage.getItem('token');
           const response = await fetch('/api/documents', {
@@ -71,7 +71,7 @@ export default class TovarModel {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${token}`,
             },
-            body: JSON.stringify({ documentData, documentSpecs }),
+            body: JSON.stringify({ documentData, documentSpecs, anom}),
           });
       
           const result = await response.json(); // Парсим ответ сервера
